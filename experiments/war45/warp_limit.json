@@ -1,0 +1,15 @@
+{
+  "pairs": 80,
+  "median_nearest_dist_px": 0.37024031972336835,
+  "p75": 8.245772682697272,
+  "p90": 110.11943017219784,
+  "recall5": 0.725,
+  "misses": 22,
+  "miss_median_dist_px": 79.44841255908403,
+  "miss_p25_dist_px": 45.97000194337941,
+  "near_miss_5_to_25px": 3,
+  "near_miss_share_of_misses": 0.13636363636363635,
+  "warp_median_px": 5.032701784522063,
+  "warp_p90_px": 8.243051776725677,
+  "corr_dist_warp": 0.0015829158643105733
+}

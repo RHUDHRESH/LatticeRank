@@ -1,0 +1,90 @@
+[
+  {
+    "label": "DRAM CLEAN",
+    "seed": 950001,
+    "architecture": "dram",
+    "profile": "standard",
+    "preset": "dram_dense",
+    "pitch_x_nm": 49.03,
+    "pitch_y_nm": 77.95,
+    "width_x_nm": 22.37,
+    "width_y_nm": 29.8,
+    "contact_nm": 23.85,
+    "gt": [
+      129.35,
+      911.45
+    ],
+    "ref_dose": 2180.6,
+    "search_dose": 154.8,
+    "search_psf_nm": 6.3,
+    "rel_rot_deg": -1.462,
+    "rel_scale": 1.00918,
+    "figure": "reports\\war45\\generator_gallery\\dram_clean.png"
+  },
+  {
+    "label": "DRAM HARD",
+    "seed": 950003,
+    "architecture": "dram",
+    "profile": "hard",
+    "preset": "dram_dense",
+    "pitch_x_nm": 61.84,
+    "pitch_y_nm": 102.82,
+    "width_x_nm": 18.65,
+    "width_y_nm": 25.0,
+    "contact_nm": 24.15,
+    "gt": [
+      695.11,
+      530.12
+    ],
+    "ref_dose": 1116.0,
+    "search_dose": 531.2,
+    "search_psf_nm": 4.65,
+    "rel_rot_deg": -1.218,
+    "rel_scale": 1.02239,
+    "figure": "reports\\war45\\generator_gallery\\dram_hard.png"
+  },
+  {
+    "label": "FINFET CLEAN",
+    "seed": 950002,
+    "architecture": "finfet",
+    "profile": "standard",
+    "preset": "finfet_dense",
+    "pitch_x_nm": 28.54,
+    "pitch_y_nm": 61.4,
+    "width_x_nm": 7.84,
+    "width_y_nm": 27.96,
+    "contact_nm": 16.01,
+    "gt": [
+      293.26,
+      300.04
+    ],
+    "ref_dose": 2894.1,
+    "search_dose": 248.5,
+    "search_psf_nm": 4.24,
+    "rel_rot_deg": -2.063,
+    "rel_scale": 1.00104,
+    "figure": "reports\\war45\\generator_gallery\\finfet_clean.png"
+  },
+  {
+    "label": "FINFET HARD",
+    "seed": 950004,
+    "architecture": "finfet",
+    "profile": "hard",
+    "preset": "finfet_dense",
+    "pitch_x_nm": 39.95,
+    "pitch_y_nm": 67.33,
+    "width_x_nm": 15.0,
+    "width_y_nm": 30.84,
+    "contact_nm": 25.87,
+    "gt": [
+      884.74,
+      365.05
+    ],
+    "ref_dose": 2474.4,
+    "search_dose": 160.4,
+    "search_psf_nm": 4.63,
+    "rel_rot_deg": -1.242,
+    "rel_scale": 0.98487,
+    "figure": "reports\\war45\\generator_gallery\\finfet_hard.png"
+  }
+]

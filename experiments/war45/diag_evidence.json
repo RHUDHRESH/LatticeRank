@@ -1,0 +1,15 @@
+{
+  "pairs": 80,
+  "true_is_local_max_rate": 0.975,
+  "C0_recall5": 0.65,
+  "C2_recall5": 0.725,
+  "C2_median_candidates": 6573.0,
+  "rank_median": 3.0,
+  "rank_p90": 5380.299999999997,
+  "rank_top1_rate": 0.3875,
+  "rank_top10_rate": 0.625,
+  "rank_top50_rate": 0.7,
+  "median_local_maxima": 9895.5,
+  "median_score_deficit": 0.0205533504486084,
+  "median_dist_to_nearest_local_max": 0.491338790882769
+}
