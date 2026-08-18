@@ -201,9 +201,36 @@ def cmd_ablate(a):
     print(f"\nwrote {OUT / 'struct_ablation.json'}")
 
 
+def cmd_fit_final(a):
+    """Train the shipping R2 ranker on ALL train tables and persist it."""
+    from sklearn.ensemble import HistGradientBoostingClassifier
+    import joblib
+    tr = []
+    for fp in sorted(OUT.glob("train_struct*.csv")):
+        part = load_csv(fp)
+        print(f"loaded {fp.name}: {len(part)} rows")
+        tr.extend(part)
+    tr_bal = []
+    for k, (sid, rows_) in enumerate(by_scene(tr).items()):
+        tr_bal.extend(hard_negatives(rows_, n_neg=a.n_neg, seed=k))
+    feats = FEATURES + STRUCT_FEATURES
+    X = np.nan_to_num(np.array([[r[f] for f in feats] for r in tr_bal]),
+                      nan=0.0, posinf=9.0, neginf=-9.0)
+    y = np.array([r["error_px"] <= POS_TOL for r in tr_bal], dtype=int)
+    m = HistGradientBoostingClassifier(max_iter=300, learning_rate=0.08,
+                                       l2_regularization=1.0, random_state=0,
+                                       class_weight="balanced")
+    m.fit(X, y)
+    mdir = PROJECT / "driftforge" / "models"
+    mdir.mkdir(parents=True, exist_ok=True)
+    joblib.dump({"model": m, "features": feats}, mdir / "hgb_r2.joblib")
+    print(f"saved {mdir / 'hgb_r2.joblib'} ({len(y)} rows, {int(y.sum())} pos, "
+          f"{len(feats)} features)")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["val", "train", "ablate"])
+    ap.add_argument("cmd", choices=["val", "train", "ablate", "fit-final"])
     ap.add_argument("--val", type=int, default=80)
     ap.add_argument("--train", type=int, default=60)
     ap.add_argument("--start", type=int, default=0)
@@ -213,7 +240,8 @@ def main():
     ap.add_argument("--n-neg", type=int, default=65)
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    {"val": cmd_val, "train": cmd_train, "ablate": cmd_ablate}[a.cmd](a)
+    {"val": cmd_val, "train": cmd_train, "ablate": cmd_ablate,
+     "fit-final": cmd_fit_final}[a.cmd](a)
 
 
 if __name__ == "__main__":

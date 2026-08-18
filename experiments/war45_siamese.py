@@ -81,6 +81,21 @@ def _scene_patches(args):
             rec["architecture"])
 
 
+def _val_job(args):
+    rec, rows = args
+    s = generate_sample(int(rec["seed"]), rec["architecture"], rec["profile"], 2)
+    t = _template_from_reference(s.reference, 1.0, 0.0)
+    tc = _crop(t, t.shape[1] / 2, t.shape[0] / 2)
+    sf = _robust_contrast(s.search)
+    sc = struct_score(rows)
+    order = np.argsort(-sc)[:150]
+    sel = [rows[int(i)] for i in order]
+    return (_to_u8(tc), [_to_u8(_crop(sf, r["x"], r["y"])) for r in sel],
+            [r["error_px"] for r in sel], [r["x"] for r in sel],
+            [r["y"] for r in sel], rec["architecture"],
+            [float(sc[int(i)]) for i in order])
+
+
 def cmd_data(a):
     from concurrent.futures import ProcessPoolExecutor
     t0 = time.perf_counter()
@@ -115,21 +130,6 @@ def cmd_data(a):
     manv = {r["id"]: r for r in read_manifest(PROJECT / "manifests/validation_phase2a_400.jsonl")}
     va = load_csv(OUT / "val_struct.csv")
     vgroups = by_scene(va)
-
-    def _val_job(args):
-        rec, rows = args
-        s = generate_sample(int(rec["seed"]), rec["architecture"], rec["profile"], 2)
-        t = _template_from_reference(s.reference, 1.0, 0.0)
-        tc = _crop(t, t.shape[1] / 2, t.shape[0] / 2)
-        sf = _robust_contrast(s.search)
-        sc = struct_score(rows)
-        order = np.argsort(-sc)[:150]
-        sel = [rows[int(i)] for i in order]
-        return (_to_u8(tc), [_to_u8(_crop(sf, r["x"], r["y"])) for r in sel],
-                [r["error_px"] for r in sel], [r["x"] for r in sel],
-                [r["y"] for r in sel], rec["architecture"],
-                [float(sc[int(i)]) for i in order])
-
     jobs = [(manv[sid], rows) for sid, rows in vgroups.items()]
     Tv, Pv, Ev, Xv, Yv, Av, SCv, sidx = [], [], [], [], [], [], [], []
     print(f"extracting patches for {len(jobs)} val scenes...")
@@ -225,7 +225,7 @@ def cmd_train(a):
             logits = (anchor @ rest.T) / tau
             loss = tF.cross_entropy(logits, torch.zeros(1, dtype=torch.long))
             opt.zero_grad(); loss.backward(); opt.step()
-            tot += float(loss); nb += 1
+            tot += float(loss.detach()); nb += 1
         print(f"epoch {epoch + 1}/{a.epochs}  loss {tot / max(nb, 1):.4f}  "
               f"({time.perf_counter() - t0:.0f}s)", flush=True)
     MODELS.mkdir(parents=True, exist_ok=True)

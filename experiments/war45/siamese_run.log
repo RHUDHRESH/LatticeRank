@@ -1,0 +1,70 @@
+mining train_struct.csv: 24369 rows
+extracting patches for 60 train scenes...
+  [50/60]
+train: 1370 patches, 60 scenes, 80 pos, 28s
+extracting patches for 80 val scenes...
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\queues.py", line 264, in _feed
+    obj = _ForkingPickler.dumps(obj)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\reduction.py", line 51, in dumps
+    cls(buf, protocol).dump(obj)
+AttributeError: Can't get local object 'cmd_data.<locals>._val_job'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45_siamese.py", line 303, in <module>
+    main()
+  File "C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45_siamese.py", line 299, in main
+    {"data": cmd_data, "train": cmd_train, "eval": cmd_eval}[a.cmd](a)
+  File "C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45_siamese.py", line 137, in cmd_data
+    for i, (tc, patches, errs, xs, ys, arch, scs) in enumerate(pool.map(_val_job, jobs)):
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\process.py", line 636, in _chain_from_iterable_of_lists
+    for element in iterable:
+                   ^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\queues.py", line 264, in _feed
+    obj = _ForkingPickler.dumps(obj)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\reduction.py", line 51, in dumps
+    cls(buf, protocol).dump(obj)
+AttributeError: Can't get local object 'cmd_data.<locals>._val_job'
+=== DATA EXIT 1 ===
+C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45_siamese.py:228: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:823.)
+  tot += float(loss); nb += 1
+72 scene draws/epoch (46 finfet incl. 2x oversample)
+epoch 1/4  loss 2.9726  (1s)
+epoch 2/4  loss 2.9403  (2s)
+epoch 3/4  loss 2.9424  (3s)
+epoch 4/4  loss 2.8962  (4s)
+saved C:\Users\SEC\Desktop\LatticeRank\DriftForge\driftforge\models\siamese.pt
+=== TRAIN EXIT 0 ===
+Traceback (most recent call last):
+  File "C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45_siamese.py", line 303, in <module>
+    main()
+  File "C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45_siamese.py", line 299, in main
+    {"data": cmd_data, "train": cmd_train, "eval": cmd_eval}[a.cmd](a)
+  File "C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45_siamese.py", line 238, in cmd_eval
+    d = np.load(OUT / "siamese_val.npz")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEC\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\SEC\\Desktop\\LatticeRank\\DriftForge\\experiments\\war45\\siamese_val.npz'
+=== EVAL EXIT 1 ===

@@ -79,22 +79,24 @@ if se and ab:
 
 # --- 05 + 06: error CDF and catastrophic rate --------------------------------
 def load_pred_errs(name):
-    fp = W / f"preds_{name}.csv"
+    # "final" reads the argmax errors (headline ranking accuracy)
+    fp = W / ("preds_final_argmax.csv" if name == "final" else f"preds_{name}.csv")
     if not fp.exists():
         return None
     with fp.open(newline="", encoding="utf-8") as fh:
         return np.array([float(r["error_px"]) for r in csv.DictReader(fh)])
 
-errs = {n: load_pred_errs(n) for n in ("R0_old", "R1_struct", "R2_old_struct")}
+errs = {n: load_pred_errs(n) for n in ("R0_old", "R1_struct", "R2_old_struct", "final")}
 if all(v is not None for v in errs.values()):
     fig, ax = plt.subplots(figsize=(7.2, 4.6))
     labs = {"R0_old": ("old features (R0)", "tab:gray"),
             "R1_struct": ("structural only (R1)", "tab:blue"),
-            "R2_old_struct": ("old + structural (R2)", "tab:green")}
+            "R2_old_struct": ("old + structural (R2)", "tab:green"),
+            "final": ("FINAL: R2 + residual blend", "tab:red")}
     for n, e in errs.items():
         s = np.sort(e); y = np.arange(1, len(s) + 1) / len(s)
-        ax.plot(s, y, lw=2, label=f"{labs[n][0]}  (≤5px {np.mean(e<=5):.0%})",
-                color=labs[n][1])
+        ax.plot(s, y, lw=2.6 if n == "final" else 1.6,
+                label=f"{labs[n][0]}  (≤5px {np.mean(e<=5):.0%})", color=labs[n][1])
     ax.axvline(5, color="black", ls=":", lw=1); ax.text(5.3, .04, "5 px", fontsize=8)
     ax.axvline(25, color="tab:red", ls=":", lw=1); ax.text(27, .04, "25 px", fontsize=8, color="tab:red")
     ax.set_xscale("symlog", linthresh=5)
@@ -104,17 +106,18 @@ if all(v is not None for v in errs.values()):
     fig.tight_layout(); fig.savefig(F / "05_error_cdf_final.png", dpi=200,
                                     bbox_inches="tight"); plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(6.6, 4.2))
+    fig, ax = plt.subplots(figsize=(7.2, 4.2))
     names = ["v1 classical\n(leak-free)", "old features\n(R0)", "structural\n(R1)",
-             "old+structural\n(R2)"]
+             "old+structural\n(R2)", "FINAL\nR2+residual"]
     cats = [0.69, float(np.mean(errs["R0_old"] > 25)),
             float(np.mean(errs["R1_struct"] > 25)),
-            float(np.mean(errs["R2_old_struct"] > 25))]
-    b = ax.bar(range(4), cats, color=["tab:gray", "tab:gray", "tab:blue", "tab:green"],
-               edgecolor="black", lw=.6)
+            float(np.mean(errs["R2_old_struct"] > 25)),
+            float(np.mean(errs["final"] > 25))]
+    b = ax.bar(range(5), cats, color=["tab:gray", "tab:gray", "tab:blue", "tab:green",
+                                      "tab:red"], edgecolor="black", lw=.6)
     for i, v in enumerate(cats):
         ax.text(i, v + .015, f"{v:.1%}", ha="center", fontsize=10)
-    ax.set_xticks(range(4)); ax.set_xticklabels(names, fontsize=9)
+    ax.set_xticks(range(5)); ax.set_xticklabels(names, fontsize=8.5)
     ax.set_ylabel("catastrophic rate (error > 25 px)"); ax.set_ylim(0, max(cats) + .12)
     ax.grid(alpha=.3, axis="y")
     ax.set_title("Catastrophic periodic-alias rate")

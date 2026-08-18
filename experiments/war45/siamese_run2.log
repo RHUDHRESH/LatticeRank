@@ -1,0 +1,41 @@
+train: 1370 patches, 60 scenes, 80 pos, 30s
+extracting patches for 80 val scenes...
+val: 7519 patches over 80 scenes
+=== DATA EXIT 0 ===
+epoch 24/30  loss 2.9509  (27s)
+epoch 25/30  loss 2.9644  (28s)
+epoch 26/30  loss 2.9575  (29s)
+epoch 27/30  loss 2.9334  (30s)
+epoch 28/30  loss 2.9550  (32s)
+epoch 29/30  loss 2.9701  (33s)
+epoch 30/30  loss 2.9670  (34s)
+saved C:\Users\SEC\Desktop\LatticeRank\DriftForge\driftforge\models\siamese.pt
+=== TRAIN EXIT 0 ===
+siamese {
+  "top1": 0.05,
+  "top5": 0.2375,
+  "top10": 0.325,
+  "acc_1px": 0.0375,
+  "acc_2px": 0.05,
+  "acc_5px": 0.05,
+  "median_px": 360.9769592285156,
+  "p95_px": 785.1359374999998,
+  "cat_rate_gt25": 0.9375,
+  "dram_top1": 0.05128205128205128,
+  "finfet_top1": 0.04878048780487805
+}
+ensemble {
+  "top1": 0.3375,
+  "top5": 0.5125,
+  "top10": 0.55,
+  "acc_1px": 0.275,
+  "acc_2px": 0.3375,
+  "acc_5px": 0.3375,
+  "median_px": 221.8870086669922,
+  "p95_px": 690.0727783203124,
+  "cat_rate_gt25": 0.6625,
+  "dram_top1": 0.38461538461538464,
+  "finfet_top1": 0.2926829268292683
+}
+top-150 pruned oracle: 70.0%  siamese inference 2.2s / 80 pairs
+=== EVAL EXIT 0 ===

@@ -1,0 +1,5 @@
+residual scores for 80 scenes...
+  done 74s
+R2_alone   top1 40.0% top5 50.0% top10 57.5% >25 60.0% dram 48.7% finfet 31.7%
+R2+1.0res  top1 41.2% top5 53.8% top10 60.0% >25 58.8% dram 48.7% finfet 34.1%
+R2+0.5res  top1 41.2% top5 52.5% top10 60.0% >25 58.8% dram 48.7% finfet 34.1%
