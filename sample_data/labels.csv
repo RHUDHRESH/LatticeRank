@@ -1,0 +1,7 @@
+id,reference,search,x,y,architecture,profile,scene_id
+train-000000,reference/train-000000.png,search/train-000000.png,625.312056,490.921876,dram,hard,scene-100000
+train-000001,reference/train-000001.png,search/train-000001.png,176.438137,888.522210,finfet,hard,scene-100001
+train-000002,reference/train-000002.png,search/train-000002.png,813.319706,515.451777,dram,standard,scene-100002
+train-000003,reference/train-000003.png,search/train-000003.png,134.661011,824.282799,finfet,standard,scene-100003
+train-000004,reference/train-000004.png,search/train-000004.png,584.035225,688.665684,dram,standard,scene-100004
+train-000005,reference/train-000005.png,search/train-000005.png,565.177557,136.248624,finfet,standard,scene-100005

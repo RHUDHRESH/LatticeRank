@@ -1,0 +1,6 @@
+{
+  "count": 6,
+  "labels_included": true,
+  "search_supersample": 2,
+  "coordinate_convention": "x=column, y=row, origin at top-left, units=search pixels"
+}
