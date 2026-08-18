@@ -1,0 +1,99 @@
+{
+  "pairs": 80,
+  "wall_s": 50.05657930000234,
+  "channels": {
+    "raw": {
+      "is_localmax": 1.0,
+      "rank_le10": 0.575,
+      "rank_le50": 0.6375,
+      "median_rank": 4.0,
+      "median_deficit": 0.02213844656944275
+    },
+    "midband": {
+      "is_localmax": 0.9,
+      "rank_le10": 0.575,
+      "rank_le50": 0.7,
+      "median_rank": 3.5,
+      "median_deficit": 0.012062549591064453
+    },
+    "directionality": {
+      "is_localmax": 1.0,
+      "rank_le10": 0.6125,
+      "rank_le50": 0.65,
+      "median_rank": 3.5,
+      "median_deficit": 0.01817472279071808
+    }
+  },
+  "adaptive": {
+    "0.02": {
+      "recall1": 0.5625,
+      "recall2": 0.625,
+      "recall5": 0.6375,
+      "ci95": [
+        0.5281079449962298,
+        0.7342920693758574
+      ],
+      "median_candidates": 13.0,
+      "p95_candidates": 231.5999999999999,
+      "median_multivote": 2.0,
+      "recall5_dram": 0.6923076923076923,
+      "recall5_finfet": 0.5853658536585366
+    },
+    "0.05": {
+      "recall1": 0.7125,
+      "recall2": 0.7875,
+      "recall5": 0.7875,
+      "ci95": [
+        0.6857784426678676,
+        0.8628761328374058
+      ],
+      "median_candidates": 28.0,
+      "p95_candidates": 6029.0,
+      "median_multivote": 7.0,
+      "recall5_dram": 0.7948717948717948,
+      "recall5_finfet": 0.7804878048780488
+    },
+    "0.1": {
+      "recall1": 0.8375,
+      "recall2": 0.9,
+      "recall5": 0.9,
+      "ci95": [
+        0.8148931119146721,
+        0.9484523844404911
+      ],
+      "median_candidates": 119.5,
+      "p95_candidates": 6682.95,
+      "median_multivote": 22.0,
+      "recall5_dram": 0.9487179487179487,
+      "recall5_finfet": 0.8536585365853658
+    },
+    "0.15": {
+      "recall1": 0.875,
+      "recall2": 0.925,
+      "recall5": 0.925,
+      "ci95": [
+        0.845879839164307,
+        0.9651747507130539
+      ],
+      "median_candidates": 546.5,
+      "p95_candidates": 7410.2,
+      "median_multivote": 58.5,
+      "recall5_dram": 0.9743589743589743,
+      "recall5_finfet": 0.8780487804878049
+    },
+    "0.25": {
+      "recall1": 0.8875,
+      "recall2": 0.925,
+      "recall5": 0.925,
+      "ci95": [
+        0.845879839164307,
+        0.9651747507130539
+      ],
+      "median_candidates": 4372.5,
+      "p95_candidates": 8547.75,
+      "median_multivote": 621.0,
+      "recall5_dram": 0.9743589743589743,
+      "recall5_finfet": 0.8780487804878049
+    }
+  }
+}
