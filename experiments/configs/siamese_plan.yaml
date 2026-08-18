@@ -1,0 +1,99 @@
+# Siamese metric-learning expert (Phase 2C) - PLAN ONLY, NOT TRAINED.
+#
+# Role: rerank a small set of hard, visually similar candidate patches. It is
+# ONE MEMBER of the ensemble in ensemble_plan.yaml, not the system. It never
+# sees the full 1000x1000 pair.
+#
+# The experiment this exists to run: do physically meaningful hard negatives
+# (integer lattice translates) reduce alias failures more than random
+# negatives? That is S_HARD vs S_RANDOM below, and it is a controlled
+# comparison, not a demo.
+
+status: not_trained
+blocked_on:
+  - E0 leak removal            # DONE in Phase 2A - training on leaked data
+                               # would bake the target-signature shortcut in
+  - R10 unified decimation     # ml.py decimates with no anti-alias prefilter
+                               # while baseline.py pre-blurs at sigma=4.0; a
+                               # model would learn that artifact
+  - Phase 2B candidate recall >= 99%   # a reranker cannot select a location
+                                       # that candidate generation never proposes
+
+input:
+  patch_size_px: 100          # Reference footprint at Search scale; 128 tested as an ablation
+  channels: 1                 # grayscale
+  normalisation: per-patch zero-mean unit-variance (matches ZNCC invariance)
+  source: Search-image crop at the candidate, vs the decimated Reference template
+
+architecture:
+  shared_encoder: true        # identical weights on both branches; the task is
+                              # symmetric similarity, not two different domains
+  embedding_dim: 128          # upper bound; 64 tested as an ablation
+  backbone: small conv stack (4-5 blocks), BatchNorm, no global pooling before
+    the final embedding
+  cpu_inference_budget_ms: 300   # for 50 candidates, within the 1 s/pair target
+
+loss:
+  candidates: [triplet, contrastive]
+  select_by: leak-free validation alias rate, not training loss
+  margin: tuned on validation only
+
+sampling:
+  positive:
+    - the true candidate (error_px <= 5 px)
+  hard_negatives:
+    - +1 lattice period along x
+    - -1 lattice period along x
+    - +2 lattice periods along x
+    - -2 lattice periods along x
+    - same set along y
+    - top false ZNCC peak
+    - top false directionality peak
+    - remote visually equivalent candidate (high patch ZNCC, far from truth)
+  note: odd (m+n) translates are TRUE negatives - they break the contact
+    checkerboard - and are the most informative negatives in the set. Even
+    (m+n) translates may be genuinely indistinguishable; do not force the model
+    to separate what physics says is identical, or it will learn noise.
+
+comparison_arms:
+  S_RANDOM:
+    negatives: sampled uniformly from the Search image
+    role: control
+  S_HARD:
+    negatives: the periodic hard-negative set above
+    role: treatment
+  primary_endpoint: catastrophic (>25 px) alias rate on leak-free validation
+  secondary: accuracy <=5 px, candidate rank accuracy, embedding separation
+
+splitting:
+  scene_level_split: required        # candidates from one scene are near
+                                     # duplicates; a random split leaks
+  group_key: scene_id
+  train/val/test: existing disjoint manifests, test stays locked
+
+forbidden:
+  candidate_center_prior_feature: true   # Phase-1 R5
+  training_on_test_split: true
+  checkpoint_selection_on_test: true
+
+training_log_contract:
+  # written as CSV; plotted by experiments/plotting.py::training_curves
+  columns:
+    - epoch
+    - train_loss
+    - val_loss
+    - positive_similarity_mean
+    - positive_similarity_std
+    - hard_negative_similarity_mean
+    - hard_negative_similarity_std
+    - random_negative_similarity_mean
+    - candidate_rank_accuracy
+    - learning_rate
+
+acceptance:
+  ship_only_if:
+    - beats the classical ensemble (B6) on leak-free validation
+    - beats it on sponsor-generated data too (E8)
+    - stays inside the CPU runtime budget
+  otherwise: cut it. A pure-classical pipeline with no torch dependency is a
+    reproducibility asset on an unknown grading machine (Phase-1 R7).

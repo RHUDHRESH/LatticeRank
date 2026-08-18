@@ -58,9 +58,22 @@ class GeneratorTests(unittest.TestCase):
         self.assertEqual(len({row["architecture"] for row in groups["train"]}), 2)
 
     def test_classical_baseline_smoke(self) -> None:
+        """The locator runs end to end and emits a usable in-bounds coordinate.
+
+        This asserted sub-2 px accuracy until Phase 2A. That threshold was only
+        reachable because the generator placed a unique high-contrast landmark
+        inside the Reference FOV in every non-ambiguous sample, next to the
+        answer; with the leak removed this seed lands ~425 px away. The
+        accuracy of the classical baseline is now measured properly on >=300
+        leak-free pairs (reports/phase2a/04_LEAKFREE_BASELINE.md) instead of
+        being asserted from one sample, and this stays a smoke test.
+        """
         sample = generate_sample(300_000, "finfet", "standard", search_supersample=1)
         result = locate(sample.reference, sample.search, rotations=(0.0,), scales=(1.0,))
-        self.assertLess(math.hypot(result.x - sample.gt_x, result.y - sample.gt_y), 2.0)
+        self.assertTrue(0.0 <= result.x < 1000.0)
+        self.assertTrue(0.0 <= result.y < 1000.0)
+        self.assertTrue(math.isfinite(result.score))
+        self.assertTrue(result.candidates)
 
 
 if __name__ == "__main__":

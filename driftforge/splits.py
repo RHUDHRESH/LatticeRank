@@ -14,6 +14,9 @@ SPLIT_SEED_BASE = {
     "validation": 300_000,
     "test": 500_000,
     "stress": 700_000,
+    # Disjoint from train (100k-102999), validation (300k-300599),
+    # test (500k-500999) and stress (700k-700499).
+    "validation_phase2a": 900_000,
 }
 
 

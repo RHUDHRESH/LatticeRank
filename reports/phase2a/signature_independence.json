@@ -1,0 +1,65 @@
+{
+  "n_scenes": 1200,
+  "signature_present_count": 900,
+  "signature_absent_count": 300,
+  "signature_inside_reference_count": 8,
+  "signature_inside_reference_fraction": 0.008888888888888889,
+  "signature_overlaps_reference_count": 11,
+  "signature_overlaps_reference_fraction": 0.012222222222222223,
+  "expected_geometric": {
+    "draw_span_nm": 9730.0,
+    "centre_inside_reference": 0.010562684780966888,
+    "any_overlap_with_reference": 0.015388236760466828
+  },
+  "signature_target_dx_nm_mean": 721.4574693231217,
+  "signature_target_dy_nm_mean": 266.20725345861774,
+  "signature_target_dx_nm_sd": 3869.834398417837,
+  "signature_target_dy_nm_sd": 3739.6134301311213,
+  "signature_target_distance_nm_median": 4827.041810148432,
+  "signature_target_distance_nm_p05": 1242.6879552863927,
+  "signature_target_distance_nm_p95": 8897.748403813803,
+  "signature_target_distance_nm_max": 11556.337533346396,
+  "corr_signature_x_target_x": -0.044310094140978515,
+  "corr_signature_y_target_y": 0.0032803231155993425,
+  "corr_signature_x_target_y": -0.022528340005668637,
+  "corr_signature_y_target_x": 0.0026582373351687755,
+  "by_profile": {
+    "standard": {
+      "n": 300,
+      "rendered": 300,
+      "inside_reference": 1
+    },
+    "hard": {
+      "n": 300,
+      "rendered": 300,
+      "inside_reference": 4
+    },
+    "boundary": {
+      "n": 300,
+      "rendered": 300,
+      "inside_reference": 3
+    },
+    "ambiguous": {
+      "n": 300,
+      "rendered": 0,
+      "inside_reference": 0
+    }
+  },
+  "by_architecture": {
+    "dram": {
+      "n": 600,
+      "inside_reference": 4
+    },
+    "finfet": {
+      "n": 600,
+      "inside_reference": 4
+    }
+  },
+  "null_check": {
+    "n_scenes_tested": 200,
+    "n_target_positions_per_scene": 4,
+    "n_signature_moved": 0,
+    "max_signature_shift_nm": 0.0,
+    "passed": true
+  }
+}

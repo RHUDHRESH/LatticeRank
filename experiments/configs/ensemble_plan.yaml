@@ -1,0 +1,103 @@
+# Candidate meta-ranker: MULTI-MODEL ENSEMBLE (Phase 2D)
+#
+# Design note: an earlier plan used a single HistGradientBoosting ranker. This
+# is now an ensemble of several learners combined by stacking, for reasons the
+# Phase-1/2A measurements support rather than for variety:
+#
+#   * The leak-free ablation showed the classical experts DISAGREE on 14/20
+#     pairs, and the oracle best-of-two beat any fixed fusion by 15 points.
+#     Disagreement is the resource; a single model imposes one inductive bias
+#     on a problem where different candidates fail for different reasons.
+#   * Tree ensembles and linear models fail differently on this feature table:
+#     trees handle the sharp lattice_residual / peak_gap thresholds, a
+#     calibrated linear model extrapolates more gracefully to acquisition
+#     conditions outside the training range (the hidden test is explicitly
+#     noisier than training).
+#   * A small ensemble is nearly free here: ranking runs over <=50 candidates
+#     per pair, so several CPU models cost microseconds against a locator
+#     budget measured in hundreds of milliseconds.
+#
+# NOT TRAINED. Gated on E0 (done), R10 (unified decimation) and Phase-2B
+# candidate recall >= 99%.
+
+task: rank candidate locations by P(is the true match)
+unit: one CandidateRecord (see experiments/common.py)
+label: is_positive = error_px <= 5.0 px
+
+base_learners:
+  - name: hgb
+    model: sklearn.ensemble.HistGradientBoostingClassifier
+    rationale: strongest single tabular learner; handles NaN natively, which
+      matters because directionality/siamese/phase features are missing until
+      later phases
+    params: {max_iter: 300, learning_rate: 0.06, max_leaf_nodes: 31,
+             l2_regularization: 1.0, early_stopping: true}
+
+  - name: random_forest
+    model: sklearn.ensemble.RandomForestClassifier
+    rationale: low-variance bagged trees; decorrelated from boosting errors
+    params: {n_estimators: 400, min_samples_leaf: 4, max_features: sqrt,
+             class_weight: balanced_subsample, n_jobs: -1}
+
+  - name: extra_trees
+    model: sklearn.ensemble.ExtraTreesClassifier
+    rationale: extra randomisation gives a third, further decorrelated tree view
+    params: {n_estimators: 400, min_samples_leaf: 2, max_features: sqrt, n_jobs: -1}
+
+  - name: logistic
+    model: sklearn.linear_model.LogisticRegression
+    rationale: monotone, smooth extrapolation outside the training envelope;
+      the safety member when acquisition conditions shift
+    params: {C: 1.0, max_iter: 2000, class_weight: balanced}
+    preprocessing: {impute: median, scale: standard}
+
+  - name: mlp_small
+    model: sklearn.neural_network.MLPClassifier
+    status: optional
+    rationale: captures smooth feature interactions the trees split on crudely;
+      dropped if it does not earn its place in the ablation
+    params: {hidden_layer_sizes: [64, 32], alpha: 1e-3, max_iter: 800}
+    preprocessing: {impute: median, scale: standard}
+
+combiner:
+  method: stacking
+  meta_learner: LogisticRegression   # on out-of-fold base probabilities
+  out_of_fold: GroupKFold
+  group_key: scene_id                # NEVER random KFold: candidates from one
+                                     # scene are near-duplicates and would leak
+  folds: 5
+  fallback: soft_vote                # reported as an ablation arm
+  calibration:
+    method: isotonic
+    fit_on: validation split only
+    why: the equivalence set is built from a probability MARGIN, so the scores
+      must be calibrated probabilities, not arbitrary monotone scores
+
+ablations_required:
+  - each base learner alone
+  - soft_vote vs stacking
+  - ensemble minus each member (leave-one-out, to prove every member earns its place)
+  - with and without siamese_similarity (isolates the learned-matcher contribution)
+
+features:
+  source: experiments/common.py::CandidateRecord.feature_names()
+  missing_policy: NaN preserved for tree models; median-imputed + flagged for
+    linear/MLP members
+  forbidden:
+    - distance_to_centre    # Phase-1 R5: the official centre rule is a
+    - distance_to_center    # TIE-BREAK applied after equivalence, never a
+    - centre_dist           # similarity feature
+  audit: feature importances and stacking coefficients must be inspected; if any
+    centre-correlated proxy dominates, stop and re-audit the feature set
+
+equivalence_set:
+  rule: admit candidate i if p_i >= p_max - delta
+  delta: calibrated on validation so the set contains the true cell ~99% of the time
+  then: apply the official nearest-to-Search-centre rule within the set only
+
+acceptance:
+  - beats every single base learner on leak-free validation
+  - reduces >25 px catastrophic failures by >=50% vs the Phase-2A baseline
+  - no accuracy regression at 1 px and 2 px
+  - total ranking cost <= 50 ms per pair on CPU
+  - beats the sponsor ZNCC baseline on sponsor-generated data (E8)

@@ -81,5 +81,9 @@ PROFILE_MIX = {
     "validation": [("standard", 0.50), ("hard", 0.25), ("boundary", 0.15), ("ambiguous", 0.10)],
     "test": [("standard", 0.35), ("hard", 0.30), ("boundary", 0.15), ("ambiguous", 0.10), ("ood", 0.10)],
     "stress": [("hard", 0.25), ("boundary", 0.20), ("ambiguous", 0.25), ("ood", 0.30)],
+    # Phase-2A leak-free benchmark extension. Mirrors the `validation` mix so
+    # results are directly comparable to the v1 gate at a usable sample size;
+    # it is a separate, disjoint split, not a re-slice of `validation`.
+    "validation_phase2a": [("standard", 0.50), ("hard", 0.25), ("boundary", 0.15), ("ambiguous", 0.10)],
 }
 

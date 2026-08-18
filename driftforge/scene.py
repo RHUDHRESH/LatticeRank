@@ -7,6 +7,33 @@ import numpy as np
 from .config import PRESETS, REFERENCE_FOV_NM, WORLD_FOV_NM, SceneSpec
 
 
+#: Radius range of the distinctive dark-core/bright-rim process defect. Also
+#: used as the world-edge margin so the cluster renders whole wherever it lands.
+SIGNATURE_RADIUS_NM = (72.0, 135.0)
+
+
+def signature_placement(
+    spec: SceneSpec,
+) -> tuple[float, float, float, np.random.Generator]:
+    """World position and radius of the distinctive process defect.
+
+    Seeded **only** by scene identity. Nothing here reads the target centre,
+    the Reference crop, the label or any target-derived quantity - that
+    independence is the whole point of E0, and exposing it as one function
+    means the diagnostic verifies the code the renderer actually runs rather
+    than a copy of it.
+
+    The live generator is returned alongside so the caller continues the same
+    stream for the brightness draws, preserving v1 draw order exactly.
+    """
+    rng = np.random.default_rng(spec.seed * 104_729 + 43)
+    margin = SIGNATURE_RADIUS_NM[1]
+    sx = float(rng.uniform(margin, WORLD_FOV_NM - margin))
+    sy = float(rng.uniform(margin, WORLD_FOV_NM - margin))
+    radius = float(rng.uniform(*SIGNATURE_RADIUS_NM))
+    return sx, sy, radius, rng
+
+
 def _uniform(rng: np.random.Generator, pair) -> float:
     return float(rng.uniform(pair[0], pair[1]))
 
@@ -202,15 +229,27 @@ def _apply_structural_defects(img: np.ndarray, spec: SceneSpec, xs: np.ndarray, 
             local = (np.abs(x - cx) < radius * 2.8) & (dist < max(radius * 0.12, 3.0))
             img[local] = np.maximum(img[local], 0.82)
 
-    # A deterministic, shared process signature inside the reference FOV makes
-    # ordinary samples identifiable at low magnification. This is not a pasted
-    # marker: it is rendered in physical world coordinates before both captures
-    # and represents a small missing-contact/residue cluster. The dedicated
-    # ambiguity profile omits it and exercises the official nearest-centre rule.
-    signature_rng = np.random.default_rng(spec.seed * 104_729 + 43)
-    sx = spec.target_cx_nm + float(signature_rng.uniform(-260, 260))
-    sy = spec.target_cy_nm + float(signature_rng.uniform(-260, 260))
-    radius = float(signature_rng.uniform(72, 135))
+    # A larger missing-contact/residue cluster, distinguished from the four
+    # random defect kinds above by its dark-core / bright-rim morphology.
+    #
+    # PHASE 2A (E0, option 0b). This was previously positioned at
+    # ``spec.target_c* + U(-260, 260)``. Because 260 + max_radius(135) = 395 is
+    # less than half the 1000 nm Reference FOV, that placed a large, unique,
+    # high-contrast blob *inside the Reference in 100% of non-ambiguous
+    # samples* - i.e. the generator marked its own answer, and the locator's
+    # mid-band channel (75% of the fused score) saw the mark. It is a
+    # target-correlated landmark, not physics.
+    #
+    # It is now an ordinary process defect: drawn uniformly in WORLD
+    # coordinates from a stream seeded only by scene identity, with no
+    # reference to the target centre, the Reference crop, or the label. It may
+    # therefore fall inside the Reference by chance, outside it, near the
+    # Search boundary, or nowhere near the target - all of which are correct.
+    #
+    # Draw order and count are unchanged, so radius and the two brightness
+    # draws consume the same underlying stream values as v1; only the two
+    # position draws are rescaled onto world bounds.
+    sx, sy, radius, signature_rng = signature_placement(spec)
     if not (sx + radius < xmin or sx - radius > xmax or sy + radius < ymin or sy - radius > ymax):
         rr = ((x - sx) / radius) ** 2 + ((y - sy) / (radius * 0.72)) ** 2
         missing = rr <= 1.0

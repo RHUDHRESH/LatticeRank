@@ -1,0 +1,1316 @@
+{
+  "runs": 27,
+  "repeats": 3,
+  "pairs_per_run": 30,
+  "total_evaluations": 2430,
+  "seed_range": [
+    1200000,
+    1202429
+  ],
+  "seed_overlap_with_splits": {
+    "train": 0,
+    "validation": 0,
+    "test": 0,
+    "stress": 0,
+    "validation_phase2a_400": 0
+  },
+  "disjoint": true,
+  "index": [
+    {
+      "run": 1,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run01_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 1,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run01_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 1,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run01_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 2,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run02_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 2,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run02_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 2,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run02_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 3,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run03_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 3,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run03_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 3,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run03_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 4,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run04_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 4,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run04_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 4,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run04_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 5,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run05_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 5,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run05_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 5,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run05_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 6,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run06_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 6,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run06_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 6,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run06_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 7,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run07_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 7,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run07_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 7,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run07_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 3,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 8,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run08_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 8,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run08_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 8,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run08_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 2,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 9,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run09_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 9,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run09_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 9,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run09_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 1,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 1,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 10,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run10_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 10,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run10_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 10,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run10_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 11,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run11_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 11,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run11_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 11,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run11_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 12,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run12_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 12,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run12_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 12,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run12_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 13,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run13_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 13,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run13_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 13,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run13_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 14,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run14_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 14,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run14_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 14,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run14_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 15,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run15_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 15,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run15_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 15,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run15_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 16,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run16_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 16,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run16_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 16,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run16_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 3,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 17,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run17_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 17,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run17_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 17,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run17_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 2,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 18,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run18_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 18,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run18_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 18,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run18_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 2,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 1,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 19,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run19_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 19,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run19_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 19,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run19_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 1,
+        "D_scale": 3,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 20,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run20_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 20,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run20_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 20,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run20_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 2,
+        "D_scale": 1,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 21,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run21_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 21,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run21_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 21,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run21_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 1,
+        "C_rotation": 3,
+        "D_scale": 2,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 22,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run22_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 22,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run22_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 22,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run22_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 1,
+        "D_scale": 1,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 23,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run23_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 23,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run23_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 23,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run23_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 2,
+        "D_scale": 2,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 24,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run24_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 24,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run24_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 24,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run24_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 2,
+        "C_rotation": 3,
+        "D_scale": 3,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 25,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run25_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 25,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run25_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 25,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run25_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 1,
+        "D_scale": 2,
+        "E_raster": 1,
+        "F_charging": 3,
+        "G_edge": 2,
+        "H_structure": 1
+      }
+    },
+    {
+      "run": 26,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run26_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 26,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run26_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 26,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run26_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 2,
+        "D_scale": 3,
+        "E_raster": 2,
+        "F_charging": 2,
+        "G_edge": 1,
+        "H_structure": 3
+      }
+    },
+    {
+      "run": 27,
+      "repeat": 1,
+      "manifest": "manifests\\taguchi\\run27_rep1.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 27,
+      "repeat": 2,
+      "manifest": "manifests\\taguchi\\run27_rep2.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    },
+    {
+      "run": 27,
+      "repeat": 3,
+      "manifest": "manifests\\taguchi\\run27_rep3.jsonl",
+      "pairs": 30,
+      "levels": {
+        "A_dose": 3,
+        "B_psf": 3,
+        "C_rotation": 3,
+        "D_scale": 1,
+        "E_raster": 3,
+        "F_charging": 1,
+        "G_edge": 3,
+        "H_structure": 2
+      }
+    }
+  ]
+}

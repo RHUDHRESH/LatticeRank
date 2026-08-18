@@ -1,0 +1,123 @@
+# Taguchi L27 physical-robustness design (Phase 2E)
+#
+# Purpose: quantify which PHYSICAL acquisition stresses drive localization
+# failure. Not hyperparameter tuning - no learning rate or batch size appears
+# in this design.
+#
+# Every level maps to an existing generator parameter and stays inside (or at)
+# the documented range in driftforge/sem.py and driftforge/scene.py. No level
+# exceeds a generator range without the rationale being stated below.
+
+design:
+  array: L27(3^13) over GF(3)
+  runs: 27
+  factors: 8
+  levels_per_factor: 3
+  assigned_columns: [1, 2, 5, 9, 10, 11, 12, 13]
+  pairwise_balanced: true   # verified numerically at build time
+  level_balanced: true
+  confounding: |
+    L27 carries 26 degrees of freedom. Eight three-level factors consume 16,
+    leaving 10 for residual. Main effects are mutually orthogonal and clean.
+    Two-factor interactions among assigned factors are aliased with
+    unassigned columns and fall into the residual term. This is a
+    main-effects SCREENING design: it ranks which stresses matter and
+    cannot resolve interactions between them.
+
+protocol:
+  pairs_per_run: 30        # 15 DRAM + 15 FinFET, exactly balanced
+  repeats: 3               # independent scene sets
+  total_evaluations: 2430  # per frozen model
+  seed_base: 1200000
+  scene_disjointness: verified against train/validation/test/stress/validation_phase2a
+  freeze_rule: all model weights and thresholds frozen BEFORE the campaign runs
+
+responses:
+  primary:   sn_ratio_error    # -10*log10(mean(error_px^2)), smaller-is-better
+  secondary: [accuracy_5px, catastrophic_rate, median_error, p95_error, runtime_ms]
+  note: |
+    accuracy and catastrophic rate are proportions and are analysed directly.
+    S/N is not applied to raw binary outcomes - with all-zero or all-one cells
+    the transform is degenerate.
+
+factors:
+  A_dose:
+    mechanism: Poisson shot noise / electron dose on the Search capture
+    parameter: AcquisitionSpec.dose (search branch)
+    units: electrons (proxy)
+    level_1: 600.0
+    level_2: 200.0
+    level_3: 60.0
+    source_or_rationale: >-
+      generator draws 70-700 (140-700 non-hard); level 3 sits at the noisy end
+      . Sponsor 'severe' is 25 - see DEFERRED_FINDINGS.
+  B_psf:
+    mechanism: beam spot size / defocus (Gaussian PSF)
+    parameter: AcquisitionSpec.psf_sigma_x_nm, psf_sigma_y_nm
+    units: nm
+    level_1: 2.5
+    level_2: 5.0
+    level_3: 8.5
+    source_or_rationale: >-
+      generator range 2.0-7.0 (x) and 2.0-8.5 (y); level 3 is the y-max.
+  C_rotation:
+    mechanism: relative stage/scan rotation between Reference and Search
+    parameter: AcquisitionSpec.rotation_deg (reference branch)
+    units: degrees
+    level_1: 0.0
+    level_2: 1.2
+    level_3: 2.5
+    source_or_rationale: >-
+      reference +/-2.2 and search +/-0.35 give ~2.55 deg relative; level 3 is 
+      the realistic worst case and sits inside the locator's +/-3 deg transfor
+      m bank.
+  D_scale:
+    mechanism: magnification-ratio error between the two captures
+    parameter: AcquisitionSpec.scale (reference branch)
+    units: ratio
+    level_1: 1.0
+    level_2: 1.015
+    level_3: 1.035
+    source_or_rationale: >-
+      reference range 0.965-1.035; level 3 is the edge of the locator's +/-6% 
+      scale bank.
+  E_raster:
+    mechanism: raster drift: progressive shear plus per-row jitter
+    parameter: AcquisitionSpec.scan_shear_px, scan_jitter_px (search)
+    units: px (shear, jitter sigma)
+    level_1: [0.5, 0.15]
+    level_2: [2.2, 0.75]
+    level_3: [4.5, 1.7]
+    source_or_rationale: >-
+      generator: shear +/-2.2 (+/-4.5 hard), jitter 0.05-1.7. Literature (PMC6
+      541586) measures 0.5-5 px scan-line shifts, so even level 3 is conservat
+      ive.
+  F_charging:
+    mechanism: local specimen charging: smooth field plus streaks
+    parameter: AcquisitionSpec.charging_strength, charging_streaks
+    units: normalised intensity, count
+    level_1: [0.0, 0]
+    level_2: [0.1, 2]
+    level_3: [0.2, 5]
+    source_or_rationale: >-
+      generator 0-0.10 (0-0.20 hard), streaks 0-2 (0-5 hard).
+  G_edge:
+    mechanism: SEM edge brightening (secondary-electron edge yield)
+    parameter: AcquisitionSpec.edge_strength
+    units: normalised intensity
+    level_1: 0.14
+    level_2: 0.28
+    level_3: 0.42
+    source_or_rationale: >-
+      generator range 0.14-0.42; spans it exactly. Officially required by the 
+      problem statement and absent from the sponsor generator.
+  H_structure:
+    mechanism: fabrication roughness and structural defect density
+    parameter: SceneSpec.roughness_nm, defect_density
+    units: nm, defects per 10 um world (scaled)
+    level_1: [0.4, 0.4]
+    level_2: [1.2, 0.9]
+    level_3: [3.0, 2.0]
+    source_or_rationale: >-
+      generator roughness 0.4-2.0 (x1.5 hard -> 3.0), density 0.4-1.4 (x1.4 ->
+       1.96).

@@ -1,0 +1,43 @@
+{
+  "success_easy_dram": [
+    "experiments\\results\\classical_v1\\galleries\\success_easy_dram_validation_phase2a-000240.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_success_easy_dram_validation_phase2a-000240.png"
+  ],
+  "success_hard_dram": [
+    "experiments\\results\\classical_v1\\galleries\\success_hard_dram_validation_phase2a-000009.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_success_hard_dram_validation_phase2a-000009.png"
+  ],
+  "failure_alias_dram": [
+    "experiments\\results\\classical_v1\\galleries\\failure_alias_dram_validation_phase2a-000190.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_failure_alias_dram_validation_phase2a-000190.png",
+    "experiments\\results\\classical_v1\\galleries\\aliascmp_dram_validation_phase2a-000190.png"
+  ],
+  "success_easy_finfet": [
+    "experiments\\results\\classical_v1\\galleries\\success_easy_finfet_validation_phase2a-000221.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_success_easy_finfet_validation_phase2a-000221.png"
+  ],
+  "success_hard_finfet": [
+    "experiments\\results\\classical_v1\\galleries\\success_hard_finfet_validation_phase2a-000101.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_success_hard_finfet_validation_phase2a-000101.png"
+  ],
+  "failure_alias_finfet": [
+    "experiments\\results\\classical_v1\\galleries\\failure_alias_finfet_validation_phase2a-000038.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_failure_alias_finfet_validation_phase2a-000038.png",
+    "experiments\\results\\classical_v1\\galleries\\aliascmp_finfet_validation_phase2a-000038.png"
+  ],
+  "failure_low_snr": [
+    "experiments\\results\\classical_v1\\galleries\\failure_low_snr_finfet_validation_phase2a-000046.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_failure_low_snr_finfet_validation_phase2a-000046.png",
+    "experiments\\results\\classical_v1\\galleries\\aliascmp_finfet_validation_phase2a-000046.png"
+  ],
+  "failure_wrong_transform": [
+    "experiments\\results\\classical_v1\\galleries\\failure_wrong_transform_dram_validation_phase2a-000034.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_failure_wrong_transform_dram_validation_phase2a-000034.png",
+    "experiments\\results\\classical_v1\\galleries\\aliascmp_dram_validation_phase2a-000034.png"
+  ],
+  "failure_matcher_error": [
+    "experiments\\results\\classical_v1\\galleries\\failure_matcher_error_dram_validation_phase2a-000295.png",
+    "experiments\\results\\classical_v1\\galleries\\pair_failure_matcher_error_dram_validation_phase2a-000295.png",
+    "experiments\\results\\classical_v1\\galleries\\aliascmp_dram_validation_phase2a-000295.png"
+  ]
+}

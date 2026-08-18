@@ -63,7 +63,25 @@ def main() -> None:
         "mean_runtime_s": float(np.mean([row["runtime_s"] for row in rows])),
         "search_supersample": args.search_supersample,
     }
-    report = {"summary": summary, "samples": rows}
+    # R8: the packaged v1 artifact carried `accepted_incorrect_at_5px`, a key
+    # this script has never written, so the shipped report could not be
+    # reproduced from the shipped code. The tolerance-parameterised key is kept
+    # (it is the correct one - the threshold is an argument, not a constant)
+    # and the schema is now versioned and self-describing so a future mismatch
+    # is detectable rather than silent.
+    summary["schema_version"] = 2
+    report = {
+        "schema_version": 2,
+        "generated_by": "scripts/audit_manifest.py",
+        "command": " ".join(
+            ["python", "scripts/audit_manifest.py", str(args.manifest),
+             "--start", str(args.start), "--limit", str(args.limit),
+             "--search-supersample", str(args.search_supersample),
+             "--tolerance", str(args.tolerance), "--output", str(args.output)]
+        ),
+        "summary": summary,
+        "samples": rows,
+    }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=2))
