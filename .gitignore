@@ -4,3 +4,8 @@ __pycache__/
 data/
 reports/debug-*.png
 
+
+# regenerable feature tables / patch tensors (>100MB, rebuild via war45_struct.py / war45_siamese.py)
+experiments/war45/val_struct.csv
+experiments/war45/train_struct*.csv
+experiments/war45/siamese_*.npz
