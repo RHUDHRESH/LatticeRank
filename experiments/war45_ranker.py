@@ -60,7 +60,7 @@ def _entropy(patch: np.ndarray) -> float:
     return float(-(p * np.log2(p)).sum())
 
 
-def build(rec, ss=2, max_cand=MAX_CAND, delta=DELTA, keep_gt=False):
+def build(rec, ss=2, max_cand=MAX_CAND, delta=DELTA, keep_gt=False, struct=False):
     s = generate_sample(int(rec["seed"]), rec["architecture"], rec["profile"], ss)
     gx, gy = s.gt_x, s.gt_y
     cm = response_maps(s.reference, s.search)
@@ -144,6 +144,14 @@ def build(rec, ss=2, max_cand=MAX_CAND, delta=DELTA, keep_gt=False):
             "noise_est": noise,
             "gt_x": gx, "gt_y": gy,
         })
+    if struct and rows:
+        # Structural identity features (war45 P0): spatially-resolved template
+        # vs candidate-patch comparison, computed on the SAME candidate set so
+        # the R0/R1/R2 ablation isolates the feature family, not the harvest.
+        from driftforge.structural_descriptor import build_context, describe
+        ctx = build_context(s.reference, s.search)
+        for r in rows:
+            r.update(describe(ctx, r["x"], r["y"]))
     return rows
 
 
@@ -193,15 +201,16 @@ def hard_negatives(rows, n_neg=60, seed=0):
 
 def _job(a):
     try:
-        return build(a[0], a[1], max_cand=a[2], keep_gt=a[3])
+        return build(a[0], a[1], max_cand=a[2], keep_gt=a[3], delta=a[4], struct=a[5])
     except Exception:
         return []
 
 
-def collect(recs, workers, ss=2, max_cand=MAX_CAND, keep_gt=False):
+def collect(recs, workers, ss=2, max_cand=MAX_CAND, keep_gt=False,
+            delta=DELTA, struct=False):
     out = []
     with ProcessPoolExecutor(max_workers=workers) as pool:
-        for i, r in enumerate(pool.map(_job, [(x, ss, max_cand, keep_gt) for x in recs]), 1):
+        for i, r in enumerate(pool.map(_job, [(x, ss, max_cand, keep_gt, delta, struct) for x in recs]), 1):
             out.extend(r)
             if i % 20 == 0 or i == len(recs):
                 print(f"  [{i}/{len(recs)}] {len(out)} candidates", flush=True)
