@@ -1,44 +1,44 @@
 {
-  "n_catastrophic": 220,
+  "n_catastrophic": 276,
   "observed_residual_px": {
-    "median": 1.992305059696545,
-    "p05": 0.49513477129194405,
-    "p95": 4.78846235997761,
-    "max": 7.971845230786338,
-    "frac_under_1px": 0.22272727272727272,
-    "frac_under_3px": 0.7545454545454545,
-    "frac_under_6px": 0.9818181818181818
+    "median": 1.9204657457193706,
+    "p05": 0.3855075846839273,
+    "p95": 4.694946535750536,
+    "max": 5.873059640112307,
+    "frac_under_1px": 0.18115942028985507,
+    "frac_under_3px": 0.7898550724637681,
+    "frac_under_6px": 1.0
   },
   "null_uniform_residual_px": {
-    "median": 2.7726333449736056,
-    "p05": 0.8038383299750301,
-    "p95": 5.838958311075081,
-    "max": 9.593012101848387,
-    "frac_under_1px": 0.07490909090909091,
-    "frac_under_3px": 0.5575454545454546,
-    "frac_under_6px": 0.9575
+    "median": 2.68372056966858,
+    "p05": 0.7862151706883691,
+    "p95": 5.589732833483989,
+    "max": 10.033992635255014,
+    "frac_under_1px": 0.0796195652173913,
+    "frac_under_3px": 0.5853804347826087,
+    "frac_under_6px": 0.9667210144927536
   },
   "null_shuffled_residual_px": {
-    "median": 2.6020066533292074,
-    "p05": 0.7530267623892622,
-    "p95": 5.740213894623395,
-    "max": 9.338229609234725,
-    "frac_under_1px": 0.08931818181818182,
-    "frac_under_3px": 0.6005681818181818,
-    "frac_under_6px": 0.9598409090909091
+    "median": 2.5686007640864688,
+    "p05": 0.7313663876677509,
+    "p95": 5.44821341821674,
+    "max": 10.077228043493466,
+    "frac_under_1px": 0.09134057971014493,
+    "frac_under_3px": 0.6208695652173913,
+    "frac_under_6px": 0.9710326086956522
   },
   "half_cell_diagonal_px": {
-    "median": 5.59075907963609,
-    "max": 9.900325065911547
+    "median": 5.251348871655033,
+    "max": 10.234560286199173
   },
   "non_affine_warp_budget_px": {
     "n_sampled": 40,
-    "median_px": 4.9646106424449945,
-    "p95_px": 8.970380712033705,
-    "max_px": 11.4059244114801
+    "median_px": 6.524833131099066,
+    "p95_px": 9.41257742287746,
+    "max_px": 10.997354643164485
   },
-  "effect_size_sigma_vs_uniform": 0.502814471383709,
-  "effect_size_sigma_vs_shuffled": 0.39436436338107117,
+  "effect_size_sigma_vs_uniform": 0.5151501246443627,
+  "effect_size_sigma_vs_shuffled": 0.44421276357856765,
   "permutation_p_value_median": 0.004975124378109453,
   "interpretation": "If observed residuals are not clearly below BOTH nulls, 'lands on a lattice translate' is not evidence and the alias classification must be discarded."
 }

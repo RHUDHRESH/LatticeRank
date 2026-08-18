@@ -27,21 +27,21 @@ pairing):
 
 | Distribution | median | p95 | max | <1 px | <3 px |
 |---|---:|---:|---:|---:|---:|
-| **Observed** | 1.99 px | 4.79 | 7.97 | 22.3% | 75.5% |
-| Null: uniform | 2.77 px | 5.84 | 9.59 | 7.5% | 55.8% |
-| Null: shuffled | 2.60 px | 5.74 | 9.34 | 8.9% | 60.1% |
+| **Observed** | 1.92 px | 4.69 | 5.87 | 18.1% | 79.0% |
+| Null: uniform | 2.68 px | 5.59 | 10.03 | 8.0% | 58.5% |
+| Null: shuffled | 2.57 px | 5.45 | 10.08 | 9.1% | 62.1% |
 
-Effect size **0.39–0.50 σ**. Statistically detectable (permutation p = 0.005 at
-n=220) but far too weak to classify individual failures.
+Effect size **0.44–0.52 σ**. Statistically detectable (permutation p = 0.005,
+n = 276) but far too weak to classify individual failures.
 
 The reason is geometric, and it is decisive:
 
-- **half a lattice cell diagonal: 5.59 px (median)** — the largest a residual
+- **half a lattice cell diagonal: 5.25 px (median)** — the largest a residual
   can ever be;
-- **non-affine warp budget: 4.96 px median, 8.97 px p95** — raster shear, row
+- **non-affine warp budget: 6.52 px median, 9.41 px p95** — raster shear, row
   jitter and radial distortion, none of which are in the affine lattice basis.
 
-The unmodelled warps are as large as the cell itself. A true alias therefore
+**The unmodelled warps are larger than the cell itself.** A true alias therefore
 *cannot* have a small residual, and a random landing often does. **Any
 threshold on lattice residual is measuring noise.** The Phase-1 conclusion
 ("4/4 catastrophic failures are aliases, residuals 0.50–2.12 px") rested on

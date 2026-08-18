@@ -19,9 +19,10 @@ Phase 2B is STOP pending human review.**
 | 8 | Benchmark harness works | ✅ **PASS** | `experiments/` runs end to end; registry refuses unimplemented systems |
 | 9 | Visual galleries generated | ✅ **PASS** | 9 traceable slots incl. DRAM/FinFET successes and each failure class |
 | 10 | Taguchi design infrastructure validated | ✅ **PASS** | L27 orthogonality verified numerically; 2,430-evaluation batch built, seeds disjoint |
-| 11 | Locked private test untouched | ✅ **PASS** | `manifests/test.jsonl` never read, never regenerated, byte-identical |
+| 11 | Rendering fidelity checked (E1b) | ✅ **PASS** | two 50-pair runs disagree on the *sign* of the ss2-vs-ss4 delta (+4.0 / −4.0 pp): noise. `ss=2` retained; `ss=4` costs 3.9× memory |
+| 12 | Locked private test untouched | ✅ **PASS** | `manifests/test.jsonl` never read, never regenerated, byte-identical |
 
-**Ten of eleven pass. Gate 7 fails, and the brief makes that a stop condition.**
+**Eleven of twelve pass. Gate 7 fails, and the brief makes that a stop condition.**
 
 ## 2. Why the gate failed, in one paragraph
 
@@ -36,9 +37,10 @@ roughly a 71/29 split, and they need different fixes.
 
 A secondary finding is that the Phase-1 measurement was over-confident. The
 lattice-residual instrument that produced "4/4 aliases" cannot separate real
-aliases from chance here, because the generator's non-affine warps (4.96 px
-median) are as large as half a lattice cell (5.59 px). That was n=4 and a weak
-instrument; this is n=276 and a direct one.
+aliases from chance here, because the generator's non-affine warps (6.52 px
+median) are *larger* than half a lattice cell (5.25 px). Observed residuals sit
+only 0.44–0.52 σ below a permutation null. That was n=4 on a weak instrument;
+this is n=276 on a direct one.
 
 ## 3. Recommended amendments to the architecture freeze
 
@@ -67,11 +69,18 @@ attacks one of the two populations. What changes:
 4. **Close the FinFET gap explicitly.** DRAM 38.0% vs FinFET 24.0%, with
    non-overlapping intervals. Both families are in the hidden test.
 
-5. **Recalibrate confidence, and stop quoting the v1 safety property.**
+5. **Treat prediction *stability* as a first-class metric.** The supersample
+   check found 23 of 50 pairs move by >1 px and 4 flip catastrophically when
+   only the render oversampling changes. Cell choice on hard pairs is decided
+   by noise-level input differences, not evidence. The sponsor's
+   `generate_sample_family()` design (one scene, several acquisitions, one
+   ground truth) measures exactly this and should be adopted.
+
+6. **Recalibrate confidence, and stop quoting the v1 safety property.**
    Coverage collapsed 75% → 24.0% and accepted-incorrect went 0 → 26. The
    absolute thresholds were fitted to contaminated data.
 
-6. **Meta-ranker is now a multi-model ensemble** (`DEFERRED_FINDINGS.md` D10,
+7. **Meta-ranker is now a multi-model ensemble** (`DEFERRED_FINDINGS.md` D10,
    `experiments/configs/ensemble_plan.yaml`) rather than a single
    HistGradientBoosting, with a leave-one-out ablation so each member must earn
    its place.
