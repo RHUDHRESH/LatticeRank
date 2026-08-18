@@ -1,0 +1,278 @@
+{
+  "n_audited": 30,
+  "median_latent_ncc": 0.8589398245549709,
+  "frac_ncc_ge_098": 0.03333333333333333,
+  "frac_ncc_ge_095": 0.06666666666666667,
+  "frac_ncc_le_090": 0.7666666666666667,
+  "by_profile": {
+    "ambiguous": {
+      "n": 5,
+      "median_ncc": 0.9225453339574142,
+      "frac_ge_095": 0.2
+    },
+    "hard": {
+      "n": 10,
+      "median_ncc": 0.8145078359875528,
+      "frac_ge_095": 0.0
+    },
+    "standard": {
+      "n": 15,
+      "median_ncc": 0.8906652619030901,
+      "frac_ge_095": 0.06666666666666667
+    }
+  },
+  "by_arch": {
+    "dram": {
+      "n": 13,
+      "median_ncc": 0.8159208211310821,
+      "frac_ge_095": 0.0
+    },
+    "finfet": {
+      "n": 17,
+      "median_ncc": 0.8769596337172035,
+      "frac_ge_095": 0.11764705882352941
+    }
+  },
+  "cases": [
+    {
+      "sample_id": "validation_phase2a-000201",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 519.6930199123968,
+      "latent_ncc_true_vs_wrong": 0.7644932266641093,
+      "distinguishability": 0.23550677333589065
+    },
+    {
+      "sample_id": "validation_phase2a-000203",
+      "architecture": "dram",
+      "profile": "hard",
+      "error_px": 492.6651081471681,
+      "latent_ncc_true_vs_wrong": 0.8130948508440236,
+      "distinguishability": 0.18690514915597645
+    },
+    {
+      "sample_id": "validation_phase2a-000204",
+      "architecture": "finfet",
+      "profile": "ambiguous",
+      "error_px": 315.52884383398515,
+      "latent_ncc_true_vs_wrong": 0.7984313969448633,
+      "distinguishability": 0.20156860305513669
+    },
+    {
+      "sample_id": "validation_phase2a-000205",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 31.427490694959207,
+      "latent_ncc_true_vs_wrong": 0.898517654268815,
+      "distinguishability": 0.10148234573118498
+    },
+    {
+      "sample_id": "validation_phase2a-000206",
+      "architecture": "dram",
+      "profile": "standard",
+      "error_px": 609.7894300226292,
+      "latent_ncc_true_vs_wrong": 0.6649099469241008,
+      "distinguishability": 0.33509005307589923
+    },
+    {
+      "sample_id": "validation_phase2a-000207",
+      "architecture": "finfet",
+      "profile": "ambiguous",
+      "error_px": 133.53055511882536,
+      "latent_ncc_true_vs_wrong": 0.9225453339574142,
+      "distinguishability": 0.07745466604258577
+    },
+    {
+      "sample_id": "validation_phase2a-000208",
+      "architecture": "dram",
+      "profile": "standard",
+      "error_px": 368.74681323828867,
+      "latent_ncc_true_vs_wrong": 0.9208122332964398,
+      "distinguishability": 0.0791877667035602
+    },
+    {
+      "sample_id": "validation_phase2a-000209",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 624.7113680826802,
+      "latent_ncc_true_vs_wrong": 0.879338650641307,
+      "distinguishability": 0.12066134935869299
+    },
+    {
+      "sample_id": "validation_phase2a-000211",
+      "architecture": "finfet",
+      "profile": "ambiguous",
+      "error_px": 199.8786630954082,
+      "latent_ncc_true_vs_wrong": 0.9993914742350818,
+      "distinguishability": 0.0006085257649182108
+    },
+    {
+      "sample_id": "validation_phase2a-000212",
+      "architecture": "dram",
+      "profile": "standard",
+      "error_px": 483.02973295736,
+      "latent_ncc_true_vs_wrong": 0.9424601088372782,
+      "distinguishability": 0.057539891162721846
+    },
+    {
+      "sample_id": "validation_phase2a-000213",
+      "architecture": "dram",
+      "profile": "hard",
+      "error_px": 260.19475606115725,
+      "latent_ncc_true_vs_wrong": 0.8370893744085548,
+      "distinguishability": 0.1629106255914452
+    },
+    {
+      "sample_id": "validation_phase2a-000215",
+      "architecture": "dram",
+      "profile": "hard",
+      "error_px": 418.60283573181636,
+      "latent_ncc_true_vs_wrong": 0.5011805995954385,
+      "distinguishability": 0.4988194004045615
+    },
+    {
+      "sample_id": "validation_phase2a-000216",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 510.9355777467606,
+      "latent_ncc_true_vs_wrong": 0.7968029509362219,
+      "distinguishability": 0.2031970490637781
+    },
+    {
+      "sample_id": "validation_phase2a-000217",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 216.1907153087926,
+      "latent_ncc_true_vs_wrong": 0.9512201517022105,
+      "distinguishability": 0.048779848297789474
+    },
+    {
+      "sample_id": "validation_phase2a-000218",
+      "architecture": "dram",
+      "profile": "hard",
+      "error_px": 473.28416675357903,
+      "latent_ncc_true_vs_wrong": 0.8630037961095575,
+      "distinguishability": 0.13699620389044254
+    },
+    {
+      "sample_id": "validation_phase2a-000224",
+      "architecture": "finfet",
+      "profile": "hard",
+      "error_px": 318.4694566138338,
+      "latent_ncc_true_vs_wrong": 0.8769596337172035,
+      "distinguishability": 0.12304036628279647
+    },
+    {
+      "sample_id": "validation_phase2a-000227",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 732.5648842113668,
+      "latent_ncc_true_vs_wrong": 0.8374035593349974,
+      "distinguishability": 0.16259644066500256
+    },
+    {
+      "sample_id": "validation_phase2a-000230",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 661.545945596202,
+      "latent_ncc_true_vs_wrong": 0.9046279175412383,
+      "distinguishability": 0.09537208245876172
+    },
+    {
+      "sample_id": "validation_phase2a-000231",
+      "architecture": "finfet",
+      "profile": "ambiguous",
+      "error_px": 75.90952089928003,
+      "latent_ncc_true_vs_wrong": 0.8577452917011793,
+      "distinguishability": 0.1422547082988207
+    },
+    {
+      "sample_id": "validation_phase2a-000232",
+      "architecture": "finfet",
+      "profile": "hard",
+      "error_px": 640.4651012408173,
+      "latent_ncc_true_vs_wrong": 0.8601343574087624,
+      "distinguishability": 0.13986564259123757
+    },
+    {
+      "sample_id": "validation_phase2a-000233",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 158.98215828703252,
+      "latent_ncc_true_vs_wrong": 0.8943187895892756,
+      "distinguishability": 0.10568121041072442
+    },
+    {
+      "sample_id": "validation_phase2a-000234",
+      "architecture": "dram",
+      "profile": "ambiguous",
+      "error_px": 27.479879743823,
+      "latent_ncc_true_vs_wrong": 0.9366662672594351,
+      "distinguishability": 0.06333373274056486
+    },
+    {
+      "sample_id": "validation_phase2a-000235",
+      "architecture": "finfet",
+      "profile": "hard",
+      "error_px": 587.602447160634,
+      "latent_ncc_true_vs_wrong": 0.7004172799934076,
+      "distinguishability": 0.29958272000659236
+    },
+    {
+      "sample_id": "validation_phase2a-000236",
+      "architecture": "dram",
+      "profile": "hard",
+      "error_px": 331.72928780657924,
+      "latent_ncc_true_vs_wrong": 0.7853999406650973,
+      "distinguishability": 0.21460005933490267
+    },
+    {
+      "sample_id": "validation_phase2a-000239",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 31.559164557011975,
+      "latent_ncc_true_vs_wrong": 0.8906652619030901,
+      "distinguishability": 0.10933473809690986
+    },
+    {
+      "sample_id": "validation_phase2a-000241",
+      "architecture": "dram",
+      "profile": "standard",
+      "error_px": 525.3919152117891,
+      "latent_ncc_true_vs_wrong": 0.8144349434300985,
+      "distinguishability": 0.18556505656990152
+    },
+    {
+      "sample_id": "validation_phase2a-000242",
+      "architecture": "dram",
+      "profile": "hard",
+      "error_px": 119.24372868247754,
+      "latent_ncc_true_vs_wrong": 0.8159208211310821,
+      "distinguishability": 0.1840791788689179
+    },
+    {
+      "sample_id": "validation_phase2a-000243",
+      "architecture": "finfet",
+      "profile": "standard",
+      "error_px": 130.97322014298365,
+      "latent_ncc_true_vs_wrong": 0.8473782299475164,
+      "distinguishability": 0.15262177005248356
+    },
+    {
+      "sample_id": "validation_phase2a-000244",
+      "architecture": "dram",
+      "profile": "standard",
+      "error_px": 278.3212451923191,
+      "latent_ncc_true_vs_wrong": 0.8998499826860702,
+      "distinguishability": 0.1001500173139298
+    },
+    {
+      "sample_id": "validation_phase2a-000246",
+      "architecture": "dram",
+      "profile": "hard",
+      "error_px": 259.36291499993985,
+      "latent_ncc_true_vs_wrong": 0.7158808888222192,
+      "distinguishability": 0.28411911117778077
+    }
+  ]
+}

@@ -3,3 +3,28 @@ TRAIN: 240 scenes [60:300], delta=0.1, struct=True, keep_gt=True
   [40/240] 12436 candidates
   [60/240] 16949 candidates
   [80/240] 24498 candidates
+  [100/240] 32597 candidates
+  [120/240] 39273 candidates
+  [140/240] 46121 candidates
+  [160/240] 53489 candidates
+  [180/240] 60002 candidates
+  [200/240] 65364 candidates
+  [220/240] 74620 candidates
+  [240/240] 84561 candidates
+wrote C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45\train_struct_60.csv (84561 rows, 86 cols)
+=== TRAIN2 EXIT 0 ===
+loaded train_struct.csv: 24369 rows
+loaded train_struct_60.csv: 84561 rows
+hard-negative subsampling: 108930 -> 15762 train rows (396 pos)
+wrote C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45\preds_R0_old.csv (80 rows, 11 cols)
+
+R0_old: top1 37.5% top5 47.5% top10 51.2% | sel<=5 35.0% median 203.7px P95 714 >25 65.0% | dram_top1 48.7% finfet_top1 26.8%
+wrote C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45\preds_R1_struct.csv (80 rows, 11 cols)
+
+R1_struct: top1 26.2% top5 46.2% top10 51.2% | sel<=5 26.2% median 235.2px P95 667 >25 73.8% | dram_top1 38.5% finfet_top1 14.6%
+wrote C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45\preds_R2_old_struct.csv (80 rows, 11 cols)
+
+R2_old_struct: top1 40.0% top5 50.0% top10 57.5% | sel<=5 37.5% median 201.1px P95 686 >25 62.5% | dram_top1 48.7% finfet_top1 31.7%
+
+wrote C:\Users\SEC\Desktop\LatticeRank\DriftForge\experiments\war45\struct_ablation.json
+=== ABLATE2 EXIT 0 ===

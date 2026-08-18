@@ -86,15 +86,18 @@ def cmd_data(a):
     t0 = time.perf_counter()
     man = {r["id"]: r for r in read_manifest(PROJECT / "manifests/train.jsonl")}
     tr = []
-    for fp in sorted(OUT.glob("train_struct*.csv")):
-        tr.extend(load_csv(fp))
+    tables = a.tables.split(",") if a.tables else [f.name for f in sorted(OUT.glob("train_struct*.csv"))]
+    for name in tables:
+        part = load_csv(OUT / name)
+        print(f"mining {name}: {len(part)} rows")
+        tr.extend(part)
     groups = by_scene(tr)
     jobs = [(man[sid], rows, 3, 30) for sid, rows in groups.items() if sid in man]
     print(f"extracting patches for {len(jobs)} train scenes...")
-    P, E, S = [], [], []
+    P, E, S, A = [], [], [], []
     with ProcessPoolExecutor(max_workers=a.workers) as pool:
         for k, (tc, patches, errs, _, _, arch) in enumerate(pool.map(_scene_patches, jobs)):
-            S.append((tc, len(patches)))
+            S.append((tc, len(patches))); A.append(arch)
             P.extend(patches); E.extend(errs)
             if (k + 1) % 50 == 0:
                 print(f"  [{k + 1}/{len(jobs)}]", flush=True)
@@ -103,7 +106,8 @@ def cmd_data(a):
     scene_idx = np.concatenate([np.full(n, i, dtype=np.int32) for i, (_, n) in enumerate(S)])
     np.savez_compressed(OUT / "siamese_train.npz",
                         templates=tmpl, patches=np.stack(P),
-                        errors=np.array(E, dtype=np.float32), scene_idx=scene_idx)
+                        errors=np.array(E, dtype=np.float32), scene_idx=scene_idx,
+                        archs=np.array(A))
     print(f"train: {len(P)} patches, {len(S)} scenes, "
           f"{int(np.sum(np.array(E) <= POS_TOL))} pos, {time.perf_counter() - t0:.0f}s")
 
@@ -190,6 +194,7 @@ def cmd_train(a):
     torch.manual_seed(0)
     d = np.load(OUT / "siamese_train.npz")
     tmpl, patches, errors, sidx = d["templates"], d["patches"], d["errors"], d["scene_idx"]
+    archs = d["archs"] if "archs" in d else np.array(["?"] * tmpl.shape[0])
     n_scene = tmpl.shape[0]
     scenes = []
     for s in range(n_scene):
@@ -198,7 +203,10 @@ def cmd_train(a):
         neg = m[errors[m] > POS_TOL]
         if len(pos) and len(neg) >= 5:
             scenes.append((s, pos, neg))
-    print(f"{len(scenes)} usable scenes (with >=1 pos and >=5 hard negs)")
+            if str(archs[s]) == "finfet":     # FinFET is the measured weak arch
+                scenes.append((s, pos, neg))  # 2x oversample its hard negatives
+    n_ff = sum(str(archs[s]) == "finfet" for s, _, _ in scenes)
+    print(f"{len(scenes)} scene draws/epoch ({n_ff} finfet incl. 2x oversample)")
 
     model = make_model()
     opt = torch.optim.Adam(model.parameters(), lr=1e-3)
@@ -286,6 +294,7 @@ def main():
     ap.add_argument("cmd", choices=["data", "train", "eval"])
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--epochs", type=int, default=4)
+    ap.add_argument("--tables", type=str, default="")
     a = ap.parse_args()
     {"data": cmd_data, "train": cmd_train, "eval": cmd_eval}[a.cmd](a)
 
