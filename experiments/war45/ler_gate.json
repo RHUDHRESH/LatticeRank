@@ -1,0 +1,109 @@
+{
+  "n": 10,
+  "wins": 6,
+  "mean_margin": 0.07677020226424791,
+  "std_margin": 0.1500350407654542,
+  "dprime_like": 0.5116818169447545,
+  "cases": [
+    {
+      "sample_id": "validation_phase2a-000201",
+      "architecture": "finfet",
+      "profile": "standard",
+      "err_px": 63.88745715976639,
+      "ler_true": 0.4091481781837688,
+      "ler_wrong": 0.2838202600142682,
+      "margin": 0.12532791816950062,
+      "win": true
+    },
+    {
+      "sample_id": "validation_phase2a-000203",
+      "architecture": "dram",
+      "profile": "hard",
+      "err_px": 184.34705977853295,
+      "ler_true": 0.23925536099741868,
+      "ler_wrong": 0.17212111513316153,
+      "margin": 0.06713424586425715,
+      "win": true
+    },
+    {
+      "sample_id": "validation_phase2a-000204",
+      "architecture": "finfet",
+      "profile": "ambiguous",
+      "err_px": 264.27660770442645,
+      "ler_true": 0.46385222767504103,
+      "ler_wrong": 0.41220025065650606,
+      "margin": 0.05165197701853497,
+      "win": true
+    },
+    {
+      "sample_id": "validation_phase2a-000205",
+      "architecture": "finfet",
+      "profile": "standard",
+      "err_px": 31.427490694959207,
+      "ler_true": 0.6158200733149214,
+      "ler_wrong": 0.33413556018227625,
+      "margin": 0.28168451313264514,
+      "win": true
+    },
+    {
+      "sample_id": "validation_phase2a-000206",
+      "architecture": "dram",
+      "profile": "standard",
+      "err_px": 631.1465853699632,
+      "ler_true": 0.19360951485677816,
+      "ler_wrong": 0.006018069889041585,
+      "margin": 0.18759144496773658,
+      "win": true
+    },
+    {
+      "sample_id": "validation_phase2a-000207",
+      "architecture": "finfet",
+      "profile": "ambiguous",
+      "err_px": 279.72650966577726,
+      "ler_true": 0.2705555732147571,
+      "ler_wrong": 0.288623916767681,
+      "margin": -0.018068343552923916,
+      "win": false
+    },
+    {
+      "sample_id": "validation_phase2a-000208",
+      "architecture": "dram",
+      "profile": "standard",
+      "err_px": 368.74681323828867,
+      "ler_true": 0.09707801811257243,
+      "ler_wrong": 0.20041806439497253,
+      "margin": -0.10334004628240011,
+      "win": false
+    },
+    {
+      "sample_id": "validation_phase2a-000211",
+      "architecture": "finfet",
+      "profile": "ambiguous",
+      "err_px": 401.62691943026863,
+      "ler_true": 0.1775922892466474,
+      "ler_wrong": 0.3254524210453359,
+      "margin": -0.14786013179868848,
+      "win": false
+    },
+    {
+      "sample_id": "validation_phase2a-000213",
+      "architecture": "dram",
+      "profile": "hard",
+      "err_px": 372.1943556457698,
+      "ler_true": 0.2338293778808983,
+      "ler_wrong": 0.24725707275955927,
+      "margin": -0.013427694878660967,
+      "win": false
+    },
+    {
+      "sample_id": "validation_phase2a-000215",
+      "architecture": "dram",
+      "profile": "hard",
+      "err_px": 183.97272118458125,
+      "ler_true": 0.559423213970271,
+      "ler_wrong": 0.22241507396779292,
+      "margin": 0.33700814000247803,
+      "win": true
+    }
+  ]
+}

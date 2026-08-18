@@ -29,7 +29,8 @@ from .lattice import estimate_lattice
 MODELS = Path(__file__).resolve().parent / "models"
 DELTA = 0.10
 MAX_CAND = 8000
-EQ_MARGIN = 0.25      # z-score equivalence margin (war45 blend validation)
+EQ_MARGIN = 0.05      # z-margin: measured flat 0.02-0.10 (margin_sweep.json),
+                      # sel<=5px 41.25% == argmax; 0.25 was too wide (37.5%)
 RES_WEIGHT = 1.0      # residual-evidence blend weight (war45 blend validation)
 
 

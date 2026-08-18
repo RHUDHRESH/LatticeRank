@@ -147,14 +147,38 @@ if se and ab:
 # --- 09: structural descriptor visual ----------------------------------------
 from driftforge.generator import generate_sample
 from driftforge.channels import response_maps, harvest
-from driftforge.structural_descriptor import build_context, _block_nccs, _zn
+from driftforge.structural_descriptor import build_context, describe, _block_nccs, _zn
 from driftforge.splits import read_manifest
 
-rec = read_manifest(P / "manifests/validation_phase2a_400.jsonl")[200]
-s = generate_sample(int(rec["seed"]), rec["architecture"], rec["profile"], 2)
-cm = response_maps(s.reference, s.search)
-cands = harvest(cm, delta=0.10)
-ctx = build_context(s.reference, s.search)
+# pick an honest success exemplar: global NCC confusable (wrong within 0.02
+# of true, or better) but blockwise correspondence clearly prefers TRUE
+recs = read_manifest(P / "manifests/validation_phase2a_400.jsonl")[200:230]
+chosen = None
+for rec in recs:
+    s = generate_sample(int(rec["seed"]), rec["architecture"], rec["profile"], 2)
+    cm = response_maps(s.reference, s.search)
+    cands = harvest(cm, delta=0.10)
+    ctx = build_context(s.reference, s.search)
+    wrongs = [c for c in cands if math.hypot(c["x"] - s.gt_x, c["y"] - s.gt_y) > 25
+              and math.isfinite(c["raw"])]
+    if not wrongs:
+        continue
+    w = max(wrongs, key=lambda c: c["raw"])
+    dt = describe(ctx, s.gt_x, s.gt_y)
+    dw = describe(ctx, w["x"], w["y"])
+    if (dw["s_raw_zncc"] >= dt["s_raw_zncc"] - 0.02
+            and dt["s_b4_mean"] > dw["s_b4_mean"] + 0.03
+            and dt["s_b4_p25"] > dw["s_b4_p25"] + 0.03):
+        chosen = (rec, s, cm, cands, ctx, w)
+        break
+if chosen is None:   # fall back to the first scene rather than fail the build
+    rec = recs[0]
+    s = generate_sample(int(rec["seed"]), rec["architecture"], rec["profile"], 2)
+    cm = response_maps(s.reference, s.search)
+    cands = harvest(cm, delta=0.10)
+    ctx = build_context(s.reference, s.search)
+else:
+    rec, s, cm, cands, ctx, _w = chosen
 th, tw = ctx.th, ctx.tw
 sf = np.pad(np.zeros((0, 0)), 0)  # placeholder to keep lints quiet
 

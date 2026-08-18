@@ -22,9 +22,97 @@ rewritten.
 
 ---
 
-# Leak-free Phase-2A baseline — current
+# War45 final system — current
 
 **Authoritative for all performance claims.**
+
+Final shipped ranker: 3-channel adaptive candidate harvesting → scene-relative
+peak-strength + structural identity features → balanced HistGradientBoosting →
+periodic-cancellation residual blend (z(HGB prob) + 1.0·z(res_int_m50)) →
+equivalence set → official nearest-centre tie rule. Model:
+`driftforge/models/hgb_r2.joblib`. Inference: `python scripts/inference.py
+reference.png search.png` → `x.xx,y.yy` (~5 s/pair, single process, no
+network).
+
+All war45 numbers are from an **80-pair scene-disjoint leak-free validation
+split** (39 DRAM / 41 FinFET), δ=0.10 adaptive candidates unless stated, and
+reproduce from committed JSONs in `experiments/war45/`:
+
+```bash
+python experiments/war45_blend.py      # blend_eval.json — final numbers
+python experiments/war45_struct.py     # struct_eval.json / struct_ablation.json
+python experiments/war45_residual.py   # residual_eval.json
+python experiments/war45_phase.py      # phase_eval.json
+python experiments/war45_siamese.py    # siamese_eval.json
+python experiments/war45_pivot.py      # pivot_recall.json
+```
+
+## Progression table (argmax / top-1)
+
+| System | ≤5 px | >25 px | Median (px) | P95 (px) | DRAM ≤5 px | FinFET ≤5 px |
+|---|---:|---:|---:|---:|---:|---:|
+| B0 classical v1 locator (leak-free, 400 pairs, below) | 31.0% | 69.0% | 248.0 | 659.0 | 38.0% | 24.0% |
+| HGB on peak-strength features (`ranker_results.json`) | 37.5% | 62.5% | 245.7 | 760.4 | — | — |
+| R2: HGB, peak-strength + structural (`struct_ablation.json`) | 40.0% | 60.0% | 180.5 | 743.3 | 48.7% | 31.7% |
+| **Final: R2 + 1.0×residual blend (`blend_eval.json`)** | **41.25%** | **58.75%** | **178.6** | **688.0** | **48.7%** | **34.1%** |
+
+Final system detail (`blend_eval.json`, `R2+1.0res`): ≤1 px 33.75%, ≤2 px
+40.0%, top-5 53.75%, top-10 60.0%, P99 904.9 px. With the equivalence-set +
+official nearest-centre tie layer (z-margin 0.25): 37.5% ≤5 px — kept for spec
+compliance; argmax is the headline.
+
+## Supporting measurements
+
+- **Candidate harvesting** (`pivot_recall.json`): old proposer C0 recall@5 px
+  65.0% → 3-channel (raw/mid-band/directionality) adaptive union: 92.5% at
+  δ=0.15 (median 546 candidates; DRAM 97.4%, FinFET 87.8%); 90.0% at δ=0.10
+  (median 120 candidates).
+- **Evidence diagnosis** (`diag_evidence.json`): true site is a local max
+  ≤5 px in 97.5% of pairs, median rank 3 of ~9,896 maxima, median NCC deficit
+  0.0206 — detection is solved; selection is the problem.
+- **Ablation** (`struct_ablation.json`, 300 train scenes, identical
+  candidates): R0 peak-strength only top-1 37.5%; R1 struct-only 26.2%; R2
+  combined 40.0%. 5× training data moved R2 only 38.8% → 40.0% (saturated).
+- **Latent-ambiguity audit** (`latent_audit.json`): across 30 catastrophic
+  failures, median latent NCC(true site, chosen site) 0.859; only 6.7% ≥0.95;
+  76.7% ≤0.90 — aliases are physically distinguishable; the generator is not
+  the bottleneck.
+
+## Measured-and-cut branches
+
+- **Lattice expansion as candidate generator**: 72.5% recall at ~6,573
+  candidates vs 90.0% at ~120 — dominated, cut. Warp hypothesis falsified
+  (error–warp correlation +0.002).
+- **Structural descriptor standalone** (`struct_eval.json`): top-1 40.0%,
+  top-5 52.5%, top-10 56.2% — below the 65% gate; demoted to ranker features
+  (~3.5 s/pair for full candidate features).
+- **Tiny Siamese** (`siamese_eval.json`): 60-scene hard-negative InfoNCE on
+  struct-pruned top-150 (pruned oracle 70%): siamese-only top-1 5.0%,
+  ensemble 33.75% vs R2's 40.0% — cut.
+- **Residual matching standalone** (`residual_eval.json`, δ=0.15 pool, oracle
+  92.5%): best formulation `A_m50` top-1 32.5% vs 45% kill line — cut as
+  standalone, retained as blend channel.
+- **Phase equivalence-class + centre-rule voting** (`phase_eval.json`): D1
+  phase-oracle 98.8% but D2 ceiling (correct class + centre rule) only
+  15–17.5%; end-to-end 7.5–12.5% — cut. True class has median 28–59 members
+  spanning the image; GT is uniform, so the centre rule cannot recover it;
+  copies are distinguishable, so collapsing discards real evidence.
+
+Stop-rule compliance: private test untouched; train/val scene-disjoint;
+distance-to-centre never a ranker feature; all numbers reproducible from the
+committed JSONs plus git SHA.
+
+The open problem remains the 58.75% catastrophic (>25 px) rate: the system
+lands on the correct lattice site or hundreds of pixels away, and the latent
+audit shows most such failures are distinguishable in principle.
+
+---
+
+# Leak-free Phase-2A baseline (B0) — historical
+
+> **Superseded as the headline result by the war45 final system above.**
+> Retained unchanged as the classical-baseline record: it is the B0 row of the
+> progression table and the reference point for all war45 deltas.
 
 ```bash
 python reports/phase2a/diagnostics/run_leakfree_baseline.py \n  --manifest manifests/validation_phase2a_400.jsonl \n  --limit 400 --search-supersample 2 --workers 6
