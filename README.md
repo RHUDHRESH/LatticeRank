@@ -11,6 +11,23 @@ so hundreds of locations can look correct. LatticeRank generates those
 hypotheses, removes the repeating lattice, and ranks the non-periodic evidence
 that remains.
 
+That is the broader Phase 1/research lineage. The scored Phase 2 entry point is
+more direct: it runs a full-resolution Difference-of-Gaussians ZNCC pose sweep,
+then separate presence and correctness heads. The distinction is documented
+explicitly below and in the methods reference.
+
+## Documentation
+
+- [Methods and engineering reference](docs/METHODS.md) — the exact Phase 2
+  runtime path, mathematics, coordinate conventions, generator, learned heads,
+  validation gates, reproduction map, and known limits.
+- [Phase 2 findings](docs/PHASE2_FINDINGS.md) — measured experiments, accepted
+  changes, rejected hypotheses, and statistical evidence.
+- [Failure analysis](docs/failure_analysis.md) — the dominant error modes and
+  their operational consequences.
+- [Bulk dataset guide](docs/BULK_DATASET.md) — deterministic production and
+  verification of large generated corpora.
+
 ![Reference-to-Search localization task](docs/images/01_localization_task.png)
 
 ## Run
@@ -223,14 +240,13 @@ python scripts/make_figures.py
 python scripts/build_submission.py
 ```
 
-`build_submission.py` packages from an explicit allow-list rather than from git
-state — `register.py`, the Phase 2 solver and both Phase 2 weight files are
-untracked, so a `git archive` would quietly ship a Phase 1 submission. The build
-fails if any required file is missing, if `failure_analysis.pdf` exceeds two
-pages, or if that document cites an evidence file the zip does not contain; then
-it extracts the finished archive to a scratch directory and runs the documented
-entry point inside it, so a weight loaded by an accidental repo-relative path is
-caught here rather than during the scored run.
+`build_submission.py` packages from an explicit allow-list rather than assuming
+that every repository file belongs in the judged archive. The build fails if
+any required file is missing, if `failure_analysis.pdf` exceeds two pages, or
+if that document cites an evidence file the zip does not contain; then it
+extracts the finished archive to a scratch directory and runs the documented
+entry point inside it, so a weight loaded by an accidental repo-relative path
+is caught here rather than during the scored run.
 
 Runtime: **2.86 s median**, **6.15 s mean**, **30.32 s P95**.
 [Evidence](results/runtime.json)
@@ -257,15 +273,16 @@ solver exceptions and watchdog expiry all still emit a row. When `found = 0`
 the pose columns are zeroed but `score` still carries real evidence, because
 the score column is judged separately for monotonicity against per-pair
 correctness. And **an internal error is never written as a confident
-rejection**: a caught exception emits the sentinel score `-1.0` and is reported
-on stderr, so a crash is distinguishable from "I looked and it is not there".
+rejection**: a caught exception emits the on-scale floor score `1e-6` and is
+reported on stderr, so a crash is distinguishable in the run log from "I looked
+and it is not there".
 Conflating the two would corrupt the rejection F1 and the confidence AUC at
 once, and make a scored run impossible to debug afterwards.
 
 ### What `score` means
 
-`score` is a **calibrated probability that the reported coordinate is correct**,
-produced by a logistic model over 20 scene-level diagnostics — the peak
+`score` is a **fitted probability used to rank whether the reported coordinate
+is correct**, produced by a logistic model over 20 scene-level diagnostics — the peak
 correlation and its margins, the refinement gain and displacement, the local
 curvature of the correlation peak, and cheap image statistics standing in for
 blur, charging and noise. It runs on 0 to 1, higher meaning more trustworthy.
@@ -277,7 +294,7 @@ By severity the figures are 0.950 / 0.975 / 0.857 / 0.830 at levels 0–3.
 
 `found` answers a **different** question — does the reference exist in this
 search image at all — and uses its own model, reaching F1 0.90–0.92 on its
-lockbox with an operating threshold of 0.48. That threshold sits on a plateau:
+lockbox at F1 0.9024 with an operating threshold of 0.48. That threshold sits on a plateau:
 every value in [0.40, 0.52] produces identical decisions, so the choice is not a
 fragile bet on the blind set's severity mix.
 
@@ -298,19 +315,26 @@ organizer-supplied data.
 
 ## Phase 1 to Phase 2: what changed
 
-Phase 2 removes three Phase 1 assumptions and adds nothing else. The method is
-the Phase 1 periodic-aware approach extended to search the now-unknown pose,
-which the addendum lists explicitly under what is allowed.
+Phase 2 removes three Phase 1 assumptions. The active entry point preserves the
+anti-aliased template construction and ZNCC foundation, replaces the Phase 1
+periodic-residual selection path with the measured dense DoG sweep, and adds
+separate presence and correctness heads.
 
 | stage | Phase 1 | Phase 2 | changed? |
 |---|---|---|---|
 | Scale normalization | fixed 10x, given | swept over the disclosed [8, 12] | **extended** |
 | Rotation | treated as noise | swept over ±6°, reported | **extended** |
-| Similarity | multi-channel ZNCC | same ZNCC, band-passed input | **extended** |
+| Similarity | multi-channel ZNCC | full-resolution DoG + ZNCC | **extended** |
 | Template construction | anti-aliased decimation | identical, scale-dependent sigma | unchanged |
-| Periodic reasoning | lattice cancellation, residual ranking | unchanged | unchanged |
+| Periodic reasoning | lattice cancellation, residual ranking | retained for Phase 1 and experiments; not on the active `register.py` path | not active |
 | Pose recovery | not required | brute-force oracles at the chosen site | **added** |
-| Presence decision | always answered | threshold on the same score | **added** |
+| Presence decision | always answered | separate 17-feature HGB classifier | **added** |
+
+The scored Phase 2 path is documented line by line in
+[the methods reference](docs/METHODS.md). Experimental candidate pools,
+periodic-residual rankers, and physics feature families remain in the repository
+for evidence and reproduction, but their presence does not mean the entry point
+executes them.
 
 The band-pass is the one substantive change to the matching signal, and it is
 measured: on 280 present pairs across `p2_val` and `p2_stress` it moved
