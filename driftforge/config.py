@@ -67,7 +67,7 @@ class AcquisitionSpec:
 
 # Geometry ranges are deliberately families, not claims that every fab uses one
 # exact pitch. Sources and the intended interpretation are documented in
-# SOURCES.md.
+# docs/REFERENCES.md.
 PRESETS = {
     "dram_dense": dict(pitch_x=(48, 72), pitch_y=(72, 110), width_x=(15, 28), width_y=(20, 38), contact=(18, 34)),
     "dram_open": dict(pitch_x=(75, 120), pitch_y=(100, 170), width_x=(22, 42), width_y=(28, 55), contact=(25, 48)),
@@ -81,5 +81,17 @@ PROFILE_MIX = {
     "validation": [("standard", 0.50), ("hard", 0.25), ("boundary", 0.15), ("ambiguous", 0.10)],
     "test": [("standard", 0.35), ("hard", 0.30), ("boundary", 0.15), ("ambiguous", 0.10), ("ood", 0.10)],
     "stress": [("hard", 0.25), ("boundary", 0.20), ("ambiguous", 0.25), ("ood", 0.30)],
+    # Extended leak-free validation set. It mirrors the validation mix but is
+    # a separate, scene-disjoint split rather than a re-slice.
+    "validation_benchmark": [("standard", 0.50), ("hard", 0.25), ("boundary", 0.15), ("ambiguous", 0.10)],
+    # Phase 2 scene-structure mixes (driftforge.phase2.PROFILE_MIX_P2); the
+    # severity ladder, not the profile, owns acquisition difficulty there.
+    "p2_train": [("standard", 0.62), ("hard", 0.18), ("boundary", 0.10), ("ambiguous", 0.10)],
+    "p2_val": [("standard", 0.62), ("hard", 0.18), ("boundary", 0.10), ("ambiguous", 0.10)],
+    "p2_test": [("standard", 0.62), ("hard", 0.18), ("boundary", 0.10), ("ambiguous", 0.10)],
+    "p2_holdout_fam": [("standard", 0.62), ("hard", 0.18), ("boundary", 0.10), ("ambiguous", 0.10)],
+    "p2_stress": [("standard", 0.62), ("hard", 0.18), ("boundary", 0.10), ("ambiguous", 0.10)],
+    "p2_val_rgb": [("standard", 0.62), ("hard", 0.18), ("boundary", 0.10), ("ambiguous", 0.10)],
+    "p2_bulk": [("standard", 0.62), ("hard", 0.18), ("boundary", 0.10), ("ambiguous", 0.10)],
 }
 

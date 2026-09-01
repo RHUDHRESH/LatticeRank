@@ -16,7 +16,7 @@ DEFAULT_COUNTS = {"train": 3000, "validation": 600, "test": 1000, "stress": 500}
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Create deterministic, scene-disjoint DriftForge manifests.")
+    parser = argparse.ArgumentParser(description="Create deterministic, scene-disjoint LatticeRank manifests.")
     parser.add_argument("--output-dir", type=Path, default=PROJECT / "manifests")
     parser.add_argument("--train", type=int, default=DEFAULT_COUNTS["train"])
     parser.add_argument("--validation", type=int, default=DEFAULT_COUNTS["validation"])

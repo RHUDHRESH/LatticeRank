@@ -1,0 +1,38 @@
+name: Clean-machine verification
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: ${{ matrix.os }} / Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+        # 3.11 is the Phase 2 reference machine; 3.12 is the dev environment.
+        python-version:
+          - "3.11"
+          - "3.12"
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install frozen environment
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Verify release
+        run: |
+          python -m pip check
+          python scripts/judge_check.py
+          python scripts/verify_evidence.py
+          python -m pytest -q
