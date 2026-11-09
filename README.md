@@ -1,6 +1,16 @@
-# DriftForge
+# LatticeRank (DriftForge)
 
 DriftForge is an original, deterministic synthetic-data system for SEMICON India 2026 Track 2 / Applied Materials **Drift-Sense**. This is a cross-scale localization problem, not image classification.
+
+**Built for:** SEMICON India Hackathon 2026, Problem Statement 2 (Applied Materials Drift-Sense)
+
+**Team:** Volt Visionaries (Rhudhresh R, Sowdeswari S, Amoga A, Dhruv D Mehta), Saveetha Engineering College
+
+**Result:** Grand finalist (Top 5) for the problem statement, Grand Finale at Yashobhoomi (IICC), New Delhi, 17–19 Sep 2026
+
+**Stack:** Python 3.10+ · NumPy · SciPy · Pillow · Matplotlib
+
+**Related:** the two submitted solvers, Phase 2 (SEM to SEM) and Phase 3 (CAD to SEM), are in [LatticeRank-Drift-Sense-2026](https://github.com/RHUDHRESH/LatticeRank-Drift-Sense-2026). This repo has the data generator, the NCC baseline and the release-gate audit.
 
 Each sample contains:
 
@@ -17,14 +27,18 @@ Each sample contains:
 4. Ordinary scenes contain shared but fabrication-like structural signatures. A separate `ambiguous` profile is deliberately wallpaper-like and obeys the official nearest-Search-centre rule.
 5. Train/validation/test/stress scene IDs and seed ranges do not overlap.
 
-## Install and verify
+## Quick start
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python -m unittest discover -s tests -v
+# Run the baseline on one of the packaged sample pairs.
+python scripts/inference.py sample_data/reference/train-000000.png sample_data/search/train-000000.png
 ```
+
+`sample_data/` holds six labelled pairs (`sample_data/labels.csv`). The larger manifests are described below.
 
 ## Generate data
 
@@ -73,3 +87,7 @@ The packaged 20-pair mixed-profile gate achieved 0.60 px median error, 80% accur
 `driftforge.ml.OnTheFlyPairDataset` lazily renders immutable manifest entries and returns full Reference/Search arrays, a 100×100 reference at Search scale, coordinate targets and a stride-4 Gaussian heatmap. Set `as_torch=True` after installing PyTorch.
 
 See [TRAINING.md](TRAINING.md), [SOURCES.md](SOURCES.md) and [RESULTS.md](RESULTS.md).
+
+---
+
+License: MIT, see [LICENSE](LICENSE). Built by [Rhudhresh R](https://github.com/RHUDHRESH).
